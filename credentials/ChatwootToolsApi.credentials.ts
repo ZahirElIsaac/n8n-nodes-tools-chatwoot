@@ -1,4 +1,9 @@
-import type { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
+import type {
+	IAuthenticateGeneric,
+	ICredentialTestRequest,
+	ICredentialType,
+	INodeProperties,
+} from 'n8n-workflow';
 
 export class ChatwootToolsApi implements ICredentialType {
 	name = 'chatwootToolsApi';
@@ -14,18 +19,40 @@ export class ChatwootToolsApi implements ICredentialType {
 			required: true,
 		},
 		{
+			displayName: 'Token Type',
+			name: 'tokenType',
+			type: 'options',
+			options: [
+				{
+					name: 'User (Admin / Agent)',
+					value: 'user',
+					description: 'Profile → Access Token. For the Application API',
+				},
+				{
+					name: 'Platform App (Super Admin)',
+					value: 'platform',
+					description: 'Super Admin → Platform Apps. For the Platform API',
+				},
+			],
+			default: 'user',
+		},
+		{
 			displayName: 'Access Token',
 			name: 'accessToken',
 			type: 'string',
 			typeOptions: { password: true },
 			default: '',
 			required: true,
-			description:
-				'Application API: user token (Profile → Access Token, admin or agent). Platform API: Platform App token (Super Admin → Platform Apps). Create one credential per token.',
 		},
 	];
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: { headers: { api_access_token: '={{$credentials.accessToken}}' } },
+	};
+	test: ICredentialTestRequest = {
+		request: {
+			baseURL: '={{$credentials.url}}',
+			url: '={{$credentials.tokenType === "platform" ? "/platform/api/v1/agent_bots" : "/api/v1/profile"}}',
+		},
 	};
 }
