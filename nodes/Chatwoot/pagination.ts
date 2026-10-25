@@ -6,6 +6,8 @@ import type {
 	INodePropertyOptions,
 } from 'n8n-workflow';
 
+const MAX_PAGES = 200;
+
 export async function paginateByPage(
 	this: IExecutePaginationFunctions,
 	requestOptions: DeclarativeRestApiSettings.ResultOptions,
@@ -16,7 +18,7 @@ export async function paginateByPage(
 	let page = Number(requestOptions.options.qs?.page) || 1;
 	let previous = '';
 
-	while (results.length < limit) {
+	while (results.length < limit && page <= MAX_PAGES) {
 		requestOptions.options.qs = { ...requestOptions.options.qs, page };
 		const items = await this.makeRoutingRequest(requestOptions);
 		const signature = JSON.stringify(items[0]?.json);
