@@ -2,41 +2,43 @@
 
 [English](README.md) | Español
 
-Community node de n8n para gestionar el **Centro de ayuda de Chatwoot** (portales, categorías y artículos). También se puede usar como tool de un AI Agent.
+Community nodes de n8n para toda la API de **Chatwoot**. Cada nodo de acción también sirve como **tool de AI Agent**.
+
+Basado en [devlikeapro/n8n-nodes-chatwoot](https://github.com/devlikeapro/n8n-nodes-chatwoot) (MIT) y [n8n-openapi-node](https://github.com/devlikeapro/n8n-openapi-node): las operaciones se generan desde el OpenAPI oficial de Chatwoot.
 
 ## Instalación
 
 En n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools-chatwoot`.
 
-## Credenciales
+## Nodos y credenciales
 
-Usa la credencial nativa **Chatwoot API** de n8n:
+| Nodo | API | Credencial | Dueño del token |
+| --- | --- | --- | --- |
+| **Chatwoot** | Application (`/api/v1`, `/api/v2`) + Help Center | **Chatwoot API** nativa de n8n (URL + Access Token) | Administrador o agente (Perfil → Access Token) |
+| **Chatwoot Platform** | Platform (`/platform/api/v1`): cuentas, usuarios de cuenta, usuarios, agent bots | **Chatwoot Platform API** (URL + token de Platform App) | Super Admin → Platform Apps (solo self-hosted) |
+| **Chatwoot Trigger** | Webhooks (registra y elimina el webhook automáticamente) | **Chatwoot API** | Administrador |
 
-- **URL:** base de tu Chatwoot (ej. `https://app.chatwoot.com`).
-- **Access Token:** Perfil → Access Token en Chatwoot.
+El **Account ID** se indica en cada operación (por defecto `1`).
 
-El **Account ID** se indica en el propio nodo (por defecto `1`).
+## Roles
 
-## Operaciones
+Las operaciones que Chatwoot restringe a administradores aparecen marcadas con **(Admin)** en la lista. Un token de agente recibe `401/403` en ellas. Una Platform App solo ve los objetos que creó o a los que se le dio acceso.
 
-| Recurso  | Operaciones                           |
-| -------- | ------------------------------------- |
-| Portal   | Get Many, Get, Create, Update         |
-| Category | Get Many, Get, Create, Update, Delete |
-| Article  | Get Many, Get, Create, Update, Delete |
+## Help Center
 
-- **Portal Slug:** requerido en Category y Article, y en Get/Update de Portal.
-- **Article → Get Many:** admite *Return All*, *Limit* y filtros (autor, categoría, locale, búsqueda y estado).
-- **Estado de artículo:** `0` borrador, `1` publicado, `2` archivado.
+Los recursos *Help Center Portal*, *Help Center Category* y *Help Center Article* cubren listar/obtener/crear/actualizar (y borrar en categorías y artículos). Los campos requeridos son parámetros planos; los opcionales están en **Fields**. Estado de artículo: `0` borrador, `1` publicado, `2` archivado.
 
-## Uso como tool de AI Agent
+## Uso de los nodos como tools de IA
 
-El nodo tiene `usableAsTool` activo. n8n solo permite que la IA complete parámetros sueltos del nodo; los campos opcionales agrupados en *Fields* y *Filters* no son visibles para el agente.
+n8n solo deja que la IA complete parámetros planos, no las colecciones *Additional Fields* / *Fields*. Los campos requeridos y los filtros de query son parámetros planos.
 
 ## Desarrollo
 
 ```bash
 pnpm install
+pnpm up-swagger   # actualiza openapi.json y regenera nodes/*/resources.ts
 pnpm build
 pnpm publish --access public --no-git-checks
 ```
+
+`nodes/*/resources.ts` lo genera `scripts/generate.ts`; no se edita a mano.
