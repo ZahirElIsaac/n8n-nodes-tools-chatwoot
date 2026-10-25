@@ -52,7 +52,7 @@ export class ChatwootTrigger implements INodeType {
 		credentials: [{ name: 'chatwootApi', required: true }],
 		webhooks: [{ name: 'default', httpMethod: 'POST', responseMode: 'onReceived', path: 'webhook' }],
 		properties: [
-			{ displayName: 'Account ID', name: 'accountId', type: 'number', default: 1, required: true },
+			{ displayName: 'Account ID', name: 'accountId', type: 'number', default: 0, required: true },
 			{
 				displayName: 'Events',
 				name: 'events',
