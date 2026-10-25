@@ -80,7 +80,7 @@ nodes/Chatwoot/
   selectors.ts, domains.ts   menús Resource/Entity
   pagination.ts              Return All / Limit
   application/, platform/    operaciones generadas, un archivo por entidad
-  helpCenter/                operaciones de Help Center escritas a mano
+  help-center/               operaciones de Help Center escritas a mano
 nodes/ChatwootTrigger/       trigger por webhook
 scripts/generate.ts          OpenAPI → nodes/Chatwoot/{application,platform}
 openapi.json                 spec oficial de Chatwoot
