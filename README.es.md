@@ -12,11 +12,13 @@ En n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools
 
 ## Nodos y credenciales
 
-| Nodo | API | Credencial | Dueño del token |
+| Nodo | Authentication / API | Credencial | Dueño del token |
 | --- | --- | --- | --- |
-| **Chatwoot** | Application (`/api/v1`, `/api/v2`) + Help Center | **Chatwoot API** nativa de n8n (URL + Access Token) | Administrador o agente (Perfil → Access Token) |
-| **Chatwoot Platform** | Platform (`/platform/api/v1`): cuentas, usuarios de cuenta, usuarios, agent bots | **Chatwoot Platform API** (URL + token de Platform App) | Super Admin → Platform Apps (solo self-hosted) |
+| **Chatwoot** | *Application API* (`/api/v1`, `/api/v2`) + Help Center | **Chatwoot API** nativa de n8n (URL + Access Token) | Administrador o agente (Perfil → Access Token) |
+| | *Platform API* (`/platform/api/v1`): cuentas, usuarios de cuenta, usuarios, agent bots | **Chatwoot Platform API** (URL + token de Platform App) | Super Admin → Platform Apps (solo self-hosted) |
 | **Chatwoot Trigger** | Webhooks (registra y elimina el webhook automáticamente) | **Chatwoot API** | Administrador |
+
+El nodo **Chatwoot** elige la API con el campo *Authentication* y también está disponible como tool de IA (**Chatwoot Tool**).
 
 El **Account ID** es un campo requerido en cada operación.
 
