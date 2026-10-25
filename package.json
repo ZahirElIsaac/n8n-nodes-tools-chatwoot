@@ -1,6 +1,6 @@
 {
   "name": "@growy/n8n-nodes-tools-chatwoot",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "n8n community nodes and AI tools for the Chatwoot API",
   "keywords": [
     "n8n-community-node-package",
@@ -17,6 +17,8 @@
     "access": "public"
   },
   "scripts": {
+    "generate": "node scripts/generate.ts",
+    "up-swagger": "curl -sL https://raw.githubusercontent.com/chatwoot/chatwoot/develop/swagger/swagger.json | python3 -m json.tool --indent 2 > openapi.json && node scripts/generate.ts",
     "build": "tsc && for d in nodes/*/; do cp $d*.svg dist/$d; done",
     "prepublishOnly": "pnpm run build"
   },
