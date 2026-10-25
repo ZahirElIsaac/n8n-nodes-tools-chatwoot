@@ -7,9 +7,9 @@ type Send = 'body' | 'query';
 
 const spec: Json = JSON.parse(readFileSync('openapi.json', 'utf8'));
 
-const TARGETS: Array<[string, (path: string) => boolean]> = [
-	['nodes/Chatwoot/resources.ts', (path) => path.startsWith('/api/') && !path.includes('/portals')],
-	['nodes/ChatwootPlatform/resources.ts', (path) => path.startsWith('/platform/')],
+const TARGETS: Array<[string, string, (path: string) => boolean]> = [
+	['nodes/Chatwoot/applicationResources.ts', 'applicationResources', (path) => path.startsWith('/api/') && !path.includes('/portals')],
+	['nodes/Chatwoot/platformResources.ts', 'platformResources', (path) => path.startsWith('/platform/')],
 ];
 const METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 const OMIT_EMPTY = "={{ $value === '' ? undefined : $value }}";
@@ -203,14 +203,14 @@ const build = (keep: (path: string) => boolean) => {
 const requests = (source: string) =>
 	new Set([...source.matchAll(/"method": "(\w+)",\s*"url": "((?:[^"\\]|\\.)*)"/g)].map((match) => requestKey(match[1], match[2])));
 
-for (const [output, keep] of TARGETS) {
+for (const [output, exportName, keep] of TARGETS) {
 	const before = existsSync(output) ? requests(readFileSync(output, 'utf8')) : new Set<string>();
-	const source = `import type { INodeProperties } from 'n8n-workflow';\n\nexport const resources: INodeProperties[] = ${JSON.stringify(build(keep), null, '\t')};\n`;
+	const source = `import type { INodeProperties } from 'n8n-workflow';\n\nexport const ${exportName}: INodeProperties[] = ${JSON.stringify(build(keep), null, '\t')};\n`;
 	writeFileSync(output, source);
 	const after = requests(source);
 	const added = [...after].filter((request) => !before.has(request));
 	const removed = [...before].filter((request) => !after.has(request));
 	console.log(`${output}: ${after.size} operations, +${added.length} -${removed.length}`);
-	for (const request of added) console.log(`  + ${request}`);
+	if (before.size) for (const request of added) console.log(`  + ${request}`);
 	for (const request of removed) console.log(`  - ${request}`);
 }
