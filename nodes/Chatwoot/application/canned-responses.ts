@@ -22,7 +22,7 @@ export const cannedResponses: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/canned_responses"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/canned_responses"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const cannedResponses: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/canned_responses"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/canned_responses"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const cannedResponses: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/canned_responses/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/canned_responses/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const cannedResponses: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/canned_responses/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/canned_responses/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			}

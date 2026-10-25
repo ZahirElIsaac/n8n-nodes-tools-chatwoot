@@ -1,4 +1,5 @@
 import type { IDataObject, INodePropertyOptions, PostReceiveAction } from 'n8n-workflow';
+import { LIMIT_RESULTS } from '../limit';
 import type { Kind } from './shared';
 
 const unwrapPayload: PostReceiveAction = async function (items) {
@@ -8,15 +9,14 @@ const unwrapPayload: PostReceiveAction = async function (items) {
 	});
 };
 
-const limitResults: PostReceiveAction = {
-	type: 'limit',
-	properties: { maxResults: '={{ $parameter["returnAll"] ? 100000 : $parameter["limit"] }}' },
-};
+const limitResults: PostReceiveAction = { type: 'limit', properties: { maxResults: LIMIT_RESULTS } };
 
-const base = '=/api/v1/accounts/{{$parameter["account_id"]}}/portals';
-const portalUrl = `${base}/{{$parameter["portal_slug"]}}`;
+const param = (name: string) => `{{ encodeURIComponent($parameter["${name}"]) }}`;
+
+const base = `=/api/v1/accounts/${param('account_id')}/portals`;
+const portalUrl = `${base}/${param('portal_slug')}`;
 const collectionUrl = (kind: Kind) => `${portalUrl}/${kind === 'category' ? 'categories' : 'articles'}`;
-const itemUrl = (kind: Kind) => `${collectionUrl(kind)}/{{$parameter["${kind}_id"]}}`;
+const itemUrl = (kind: Kind) => `${collectionUrl(kind)}/${param(`${kind}_id`)}`;
 
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 

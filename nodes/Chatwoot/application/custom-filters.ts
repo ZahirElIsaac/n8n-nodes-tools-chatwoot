@@ -22,7 +22,7 @@ export const customFilters: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/custom_filters"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const customFilters: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/custom_filters"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const customFilters: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters/{{$parameter[\"custom_filter_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/custom_filters/{{ encodeURIComponent($parameter[\"custom_filter_id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const customFilters: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters/{{$parameter[\"custom_filter_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/custom_filters/{{ encodeURIComponent($parameter[\"custom_filter_id\"]) }}"
 					}
 				}
 			},
@@ -80,7 +80,7 @@ export const customFilters: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters/{{$parameter[\"custom_filter_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/custom_filters/{{ encodeURIComponent($parameter[\"custom_filter_id\"]) }}"
 					}
 				}
 			}

@@ -22,7 +22,7 @@ export const messages: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/messages"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/messages"
 					},
 					"output": {
 						"postReceive": [
@@ -50,7 +50,7 @@ export const messages: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/messages"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/messages"
 					}
 				}
 			},
@@ -62,7 +62,7 @@ export const messages: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/messages/{{$parameter[\"message_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/messages/{{ encodeURIComponent($parameter[\"message_id\"]) }}"
 					}
 				}
 			},
@@ -74,7 +74,7 @@ export const messages: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/messages/{{$parameter[\"message_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/messages/{{ encodeURIComponent($parameter[\"message_id\"]) }}"
 					}
 				}
 			}

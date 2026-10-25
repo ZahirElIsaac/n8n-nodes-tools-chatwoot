@@ -22,7 +22,7 @@ export const auditLogs: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/audit_logs"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/audit_logs"
 					},
 					"output": {
 						"postReceive": [

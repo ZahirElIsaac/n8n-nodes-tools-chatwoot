@@ -22,7 +22,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/meta"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/meta"
 					}
 				}
 			},
@@ -34,7 +34,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations"
 					},
 					"output": {
 						"postReceive": [
@@ -56,7 +56,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/filter"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/filter"
 					},
 					"output": {
 						"postReceive": [
@@ -90,7 +90,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}"
 					}
 				}
 			},
@@ -102,7 +102,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}"
 					}
 				}
 			},
@@ -114,7 +114,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/toggle_status"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/toggle_status"
 					}
 				}
 			},
@@ -126,7 +126,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/toggle_priority"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/toggle_priority"
 					}
 				}
 			},
@@ -138,7 +138,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/toggle_typing_status"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/toggle_typing_status"
 					}
 				}
 			},
@@ -150,7 +150,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/update_last_seen"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/update_last_seen"
 					}
 				}
 			},
@@ -162,7 +162,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/custom_attributes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/custom_attributes"
 					}
 				}
 			},
@@ -174,7 +174,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/destroy_custom_attributes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/destroy_custom_attributes"
 					}
 				}
 			},
@@ -186,7 +186,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/labels"
 					},
 					"output": {
 						"postReceive": [
@@ -214,7 +214,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/labels"
 					}
 				}
 			},
@@ -226,7 +226,7 @@ export const conversations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/reporting_events"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/reporting_events"
 					},
 					"output": {
 						"postReceive": [

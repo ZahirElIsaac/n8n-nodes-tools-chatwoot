@@ -22,7 +22,7 @@ export const agents: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agents"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/agents"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const agents: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agents"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/agents"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const agents: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agents/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/agents/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const agents: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agents/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/agents/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			}

@@ -22,7 +22,7 @@ export const conversationAssignments: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/assignments"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/conversations/{{ encodeURIComponent($parameter[\"conversation_id\"]) }}/assignments"
 					}
 				}
 			}

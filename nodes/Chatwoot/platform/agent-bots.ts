@@ -56,7 +56,7 @@ export const agentBots: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/platform/api/v1/agent_bots/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/agent_bots/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const agentBots: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/platform/api/v1/agent_bots/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/agent_bots/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -80,7 +80,7 @@ export const agentBots: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/platform/api/v1/agent_bots/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/agent_bots/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			}

@@ -22,7 +22,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PUT",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -80,7 +80,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -92,7 +92,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/conversations"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}/conversations"
 					},
 					"output": {
 						"postReceive": [
@@ -120,7 +120,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/search"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/search"
 					},
 					"output": {
 						"postReceive": [
@@ -142,7 +142,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/filter"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/filter"
 					},
 					"output": {
 						"postReceive": [
@@ -164,7 +164,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/contact_inboxes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}/contact_inboxes"
 					}
 				}
 			},
@@ -176,7 +176,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/contactable_inboxes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}/contactable_inboxes"
 					},
 					"output": {
 						"postReceive": [
@@ -204,7 +204,7 @@ export const contacts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/actions/contact_merge"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/actions/contact_merge"
 					}
 				}
 			}

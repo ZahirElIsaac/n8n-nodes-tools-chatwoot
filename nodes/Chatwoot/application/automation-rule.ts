@@ -22,7 +22,7 @@ export const automationRule: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/automation_rules"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const automationRule: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/automation_rules"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const automationRule: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/automation_rules/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const automationRule: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/automation_rules/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -80,7 +80,7 @@ export const automationRule: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/automation_rules/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			}

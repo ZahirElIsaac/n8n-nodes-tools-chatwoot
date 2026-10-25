@@ -22,7 +22,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}"
 					}
 				}
 			},
@@ -80,7 +80,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}"
 					}
 				}
 			},
@@ -92,7 +92,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}/team_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}/team_members"
 					},
 					"output": {
 						"postReceive": [
@@ -114,7 +114,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}/team_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}/team_members"
 					}
 				}
 			},
@@ -126,7 +126,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}/team_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}/team_members"
 					}
 				}
 			},
@@ -138,7 +138,7 @@ export const teams: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}/team_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/teams/{{ encodeURIComponent($parameter[\"team_id\"]) }}/team_members"
 					}
 				}
 			}

@@ -34,7 +34,7 @@ export const accounts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/platform/api/v1/accounts/{{$parameter[\"account_id\"]}}"
+						"url": "=/platform/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}"
 					}
 				}
 			},
@@ -46,7 +46,7 @@ export const accounts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/platform/api/v1/accounts/{{$parameter[\"account_id\"]}}"
+						"url": "=/platform/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}"
 					}
 				}
 			},
@@ -58,7 +58,7 @@ export const accounts: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/platform/api/v1/accounts/{{$parameter[\"account_id\"]}}"
+						"url": "=/platform/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}"
 					}
 				}
 			}

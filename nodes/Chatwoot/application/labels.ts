@@ -22,7 +22,7 @@ export const labels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/labels"
 					},
 					"output": {
 						"postReceive": [
@@ -50,7 +50,7 @@ export const labels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/labels"
 					}
 				}
 			},
@@ -62,7 +62,7 @@ export const labels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/labels/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -74,7 +74,7 @@ export const labels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/labels/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -86,7 +86,7 @@ export const labels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/labels/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			}

@@ -22,7 +22,7 @@ export const contactLabels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}/labels"
 					},
 					"output": {
 						"postReceive": [
@@ -50,7 +50,7 @@ export const contactLabels: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/labels"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/contacts/{{ encodeURIComponent($parameter[\"id\"]) }}/labels"
 					}
 				}
 			}

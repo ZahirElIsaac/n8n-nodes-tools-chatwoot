@@ -22,7 +22,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/branded_email_layout"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/branded_email_layout"
 					}
 				}
 			},
@@ -34,7 +34,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/branded_email_layout"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/branded_email_layout"
 					}
 				}
 			},
@@ -46,7 +46,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes"
 					},
 					"output": {
 						"postReceive": [
@@ -74,7 +74,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes"
 					}
 				}
 			},
@@ -86,7 +86,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -98,7 +98,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -110,7 +110,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}/message_templates"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes/{{ encodeURIComponent($parameter[\"id\"]) }}/message_templates"
 					},
 					"output": {
 						"postReceive": [
@@ -138,7 +138,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}/agent_bot"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes/{{ encodeURIComponent($parameter[\"id\"]) }}/agent_bot"
 					}
 				}
 			},
@@ -150,7 +150,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}/set_agent_bot"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inboxes/{{ encodeURIComponent($parameter[\"id\"]) }}/set_agent_bot"
 					}
 				}
 			},
@@ -162,7 +162,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inbox_members/{{$parameter[\"inbox_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inbox_members/{{ encodeURIComponent($parameter[\"inbox_id\"]) }}"
 					},
 					"output": {
 						"postReceive": [
@@ -190,7 +190,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inbox_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inbox_members"
 					}
 				}
 			},
@@ -202,7 +202,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inbox_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inbox_members"
 					}
 				}
 			},
@@ -214,7 +214,7 @@ export const inboxes: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inbox_members"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/inbox_members"
 					}
 				}
 			}

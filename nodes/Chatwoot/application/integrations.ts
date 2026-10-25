@@ -22,7 +22,7 @@ export const integrations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/integrations/apps"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/integrations/apps"
 					},
 					"output": {
 						"postReceive": [
@@ -50,7 +50,7 @@ export const integrations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/integrations/hooks"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/integrations/hooks"
 					}
 				}
 			},
@@ -62,7 +62,7 @@ export const integrations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/integrations/hooks/{{$parameter[\"hook_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/integrations/hooks/{{ encodeURIComponent($parameter[\"hook_id\"]) }}"
 					}
 				}
 			},
@@ -74,7 +74,7 @@ export const integrations: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/integrations/hooks/{{$parameter[\"hook_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/integrations/hooks/{{ encodeURIComponent($parameter[\"hook_id\"]) }}"
 					}
 				}
 			}

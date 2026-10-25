@@ -22,7 +22,7 @@ export const webhooks: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/webhooks"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/webhooks"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const webhooks: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/webhooks"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/webhooks"
 					}
 				}
 			},
@@ -56,7 +56,7 @@ export const webhooks: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/webhooks/{{$parameter[\"webhook_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/webhooks/{{ encodeURIComponent($parameter[\"webhook_id\"]) }}"
 					}
 				}
 			},
@@ -68,7 +68,7 @@ export const webhooks: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/webhooks/{{$parameter[\"webhook_id\"]}}"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/webhooks/{{ encodeURIComponent($parameter[\"webhook_id\"]) }}"
 					}
 				}
 			}

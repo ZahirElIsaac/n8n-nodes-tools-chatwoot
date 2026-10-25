@@ -22,7 +22,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/reporting_events"
+						"url": "=/api/v1/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reporting_events"
 					},
 					"output": {
 						"postReceive": [
@@ -44,7 +44,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports"
 					},
 					"output": {
 						"postReceive": [
@@ -66,7 +66,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/summary"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/summary"
 					}
 				}
 			},
@@ -78,7 +78,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/conversations"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/conversations"
 					}
 				}
 			},
@@ -90,7 +90,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/conversations/"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/conversations/"
 					},
 					"output": {
 						"postReceive": [
@@ -112,7 +112,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/channel"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/summary_reports/channel"
 					}
 				}
 			},
@@ -124,7 +124,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/inbox"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/summary_reports/inbox"
 					},
 					"output": {
 						"postReceive": [
@@ -146,7 +146,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/agent"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/summary_reports/agent"
 					},
 					"output": {
 						"postReceive": [
@@ -168,7 +168,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/team"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/summary_reports/team"
 					},
 					"output": {
 						"postReceive": [
@@ -190,7 +190,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/first_response_time_distribution"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/first_response_time_distribution"
 					}
 				}
 			},
@@ -202,7 +202,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/inbox_label_matrix"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/inbox_label_matrix"
 					}
 				}
 			},
@@ -214,7 +214,7 @@ export const reports: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/outgoing_messages_count"
+						"url": "=/api/v2/accounts/{{ encodeURIComponent($parameter[\"account_id\"]) }}/reports/outgoing_messages_count"
 					},
 					"output": {
 						"postReceive": [

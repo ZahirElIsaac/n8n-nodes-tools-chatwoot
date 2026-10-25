@@ -34,7 +34,7 @@ export const users: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/platform/api/v1/users/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/users/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -46,7 +46,7 @@ export const users: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "PATCH",
-						"url": "=/platform/api/v1/users/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/users/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -58,7 +58,7 @@ export const users: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "DELETE",
-						"url": "=/platform/api/v1/users/{{$parameter[\"id\"]}}"
+						"url": "=/platform/api/v1/users/{{ encodeURIComponent($parameter[\"id\"]) }}"
 					}
 				}
 			},
@@ -70,7 +70,7 @@ export const users: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "GET",
-						"url": "=/platform/api/v1/users/{{$parameter[\"id\"]}}/login"
+						"url": "=/platform/api/v1/users/{{ encodeURIComponent($parameter[\"id\"]) }}/login"
 					}
 				}
 			},
@@ -82,7 +82,7 @@ export const users: INodeProperties[] = [
 				"routing": {
 					"request": {
 						"method": "POST",
-						"url": "=/platform/api/v1/users/{{$parameter[\"id\"]}}/token"
+						"url": "=/platform/api/v1/users/{{ encodeURIComponent($parameter[\"id\"]) }}/token"
 					}
 				}
 			}
