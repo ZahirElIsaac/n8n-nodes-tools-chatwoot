@@ -1,10 +1,29 @@
 import { NodeConnectionTypes } from 'n8n-workflow';
-import type { INodePropertyOptions, INodeType, INodeTypeDescription } from 'n8n-workflow';
+import type { INodeProperties, INodePropertyOptions, INodeType, INodeTypeDescription } from 'n8n-workflow';
+import { applicationResources } from './applicationResources';
 import { helpCenterProperties, helpCenterResources } from './helpCenter';
-import { resources } from './resources';
+import { platformResources } from './platformResources';
 
-const [resourceSelector, ...operations] = resources;
-const sortedByName = (options: INodePropertyOptions[]) => [...options].sort((a, b) => a.name.localeCompare(b.name));
+type Api = 'application' | 'platform';
+
+const scope = (api: Api, properties: INodeProperties[]): INodeProperties[] =>
+	properties.map((property) => ({
+		...property,
+		displayOptions: { ...property.displayOptions, show: { authentication: [api], ...property.displayOptions?.show } },
+	}));
+
+const byName = (a: INodePropertyOptions, b: INodePropertyOptions) => a.name.localeCompare(b.name);
+
+const [applicationSelector, ...applicationOperations] = applicationResources;
+
+const application = scope('application', [
+	{
+		...applicationSelector,
+		options: [...(applicationSelector.options as INodePropertyOptions[]), ...helpCenterResources].sort(byName),
+	},
+	...applicationOperations,
+	...helpCenterProperties,
+]);
 
 export class Chatwoot implements INodeType {
 	description: INodeTypeDescription = {
@@ -14,23 +33,33 @@ export class Chatwoot implements INodeType {
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Consume the Chatwoot Application API',
+		description: 'Consume the Chatwoot API',
 		defaults: { name: 'Chatwoot' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
-		credentials: [{ name: 'chatwootApi', required: true }],
+		credentials: [
+			{ name: 'chatwootApi', required: true, displayOptions: { show: { authentication: ['application'] } } },
+			{ name: 'chatwootPlatformApi', required: true, displayOptions: { show: { authentication: ['platform'] } } },
+		],
 		requestDefaults: {
 			headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 			baseURL: '={{$credentials.url}}',
 		},
 		properties: [
 			{
-				...resourceSelector,
-				options: sortedByName([...(resourceSelector.options as INodePropertyOptions[]), ...helpCenterResources]),
+				displayName: 'Authentication',
+				name: 'authentication',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{ name: 'Application API (Admin / Agent Token)', value: 'application' },
+					{ name: 'Platform API (Super Admin Token)', value: 'platform' },
+				],
+				default: 'application',
 			},
-			...operations,
-			...helpCenterProperties,
+			...application,
+			...scope('platform', platformResources),
 		],
 	};
 }
