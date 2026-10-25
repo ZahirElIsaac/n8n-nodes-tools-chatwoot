@@ -107,16 +107,18 @@ const bodyFields = (operation: Json) => {
 	);
 };
 
-const pagingFields: Field[] = [
+const LIMIT_RESULTS = '={{ $parameter["returnAll"] ? 100000 : $parameter["limit"] }}';
+
+const listingFields = (paged: boolean): Field[] => [
 	{
 		rank: 2,
 		property: {
 			displayName: 'Return All',
 			name: 'returnAll',
 			type: 'boolean',
-			default: false,
+			default: !paged,
 			description: 'Whether to return all results or only up to a given limit',
-			routing: { send: { paginate: '={{ true }}' } },
+			...(paged && { routing: { send: { paginate: '={{ true }}' } } }),
 		},
 	},
 	{
@@ -129,16 +131,26 @@ const pagingFields: Field[] = [
 			typeOptions: { minValue: 1 },
 			description: 'Max number of results to return',
 			displayOptions: { show: { returnAll: [false] } },
-			routing: { send: { paginate: '={{ true }}' }, output: { maxResults: '={{ $value }}' } },
+			...(paged && { routing: { send: { paginate: '={{ true }}' } } }),
 		},
 	},
 ];
 
-const itemsPath = (operation: Json) => {
-	const properties = resolve(operation.responses?.['200']?.content?.['application/json']?.schema ?? {}).properties ?? {};
-	if (properties.payload) return 'payload';
-	if (resolve(properties.data ?? {}).properties?.payload) return 'data.payload';
-	return Object.keys(properties).find((name) => typeOf(resolve(properties[name])) === 'array');
+const arrayPath = (schema: Json) => {
+	const properties = schema.properties ?? {};
+	if (typeOf(resolve(properties.payload ?? {})) === 'array') return 'payload';
+	return typeOf(resolve(resolve(properties.data ?? {}).properties?.payload ?? {})) === 'array' ? 'data.payload' : undefined;
+};
+
+const listing = (operation: Json, method: string, paged: boolean) => {
+	if (method !== 'get' && !paged) return undefined;
+	const schema = resolve(operation.responses?.['200']?.content?.['application/json']?.schema ?? {});
+	if (typeOf(schema) === 'array') return { root: undefined };
+	const properties = schema.properties ?? {};
+	const root =
+		arrayPath(schema) ??
+		(paged ? ('payload' in properties ? 'payload' : Object.keys(properties).find((name) => typeOf(resolve(properties[name])) === 'array')) : undefined);
+	return root ? { root } : undefined;
 };
 
 const operationFields = (pathItem: Json, operation: Json) => {
@@ -160,7 +172,7 @@ const operationFields = (pathItem: Json, operation: Json) => {
 	const paged = byName.get('page')?.property.routing?.send?.type === 'query';
 	return {
 		paged,
-		required: [...all.filter((field) => field.property.required || field.rank === 0), ...(paged ? pagingFields : [])],
+		required: all.filter((field) => field.property.required || field.rank === 0),
 		optional: all.filter((field) => !field.property.required && field.rank !== 0).map((field) => field.property),
 	};
 };
@@ -178,7 +190,11 @@ const build = (keep: (path: string) => boolean) => {
 			resources.set(tag, resource);
 
 			const { required, optional, paged } = operationFields(pathItem, operation);
-			const root = paged ? itemsPath(operation) : undefined;
+			const list = listing(operation, method, paged);
+			const postReceive = [
+				...(list?.root ? [{ type: 'rootProperty', properties: { property: list.root } }] : []),
+				...(list && !paged ? [{ type: 'limit', properties: { maxResults: LIMIT_RESULTS } }] : []),
+			];
 			const value = startCase(operation.operationId);
 			const url = `=${path.replace(/\{(\w+)\}/g, '{{$parameter["$1"]}}')}`;
 			resource.options.push({
@@ -188,11 +204,11 @@ const build = (keep: (path: string) => boolean) => {
 				description: operation.description ?? operation.summary ?? '',
 				routing: {
 					request: { method: method.toUpperCase() as 'GET', url },
-					...(root && { output: { postReceive: [{ type: 'rootProperty', properties: { property: root } }] } }),
+					...(postReceive.length && { output: { postReceive } }),
 				},
 			});
 
-			for (const field of required) {
+			for (const field of [...required, ...(list ? listingFields(paged) : [])]) {
 				const key = JSON.stringify(field.property);
 				const entry = resource.fields.get(key) ?? { field, operations: [] };
 				entry.operations.push(value);

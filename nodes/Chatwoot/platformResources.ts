@@ -52,6 +52,16 @@ export const platformResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/platform/api/v1/accounts/{{$parameter[\"account_id\"]}}/account_users"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -146,6 +156,46 @@ export const platformResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Create An Account User"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Account Users"
+				],
+				"operation": [
+					"List All Account Users"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Account Users"
+				],
+				"operation": [
+					"List All Account Users"
 				]
 			}
 		}
@@ -500,6 +550,16 @@ export const platformResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/platform/api/v1/agent_bots"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -570,6 +630,46 @@ export const platformResources: INodeProperties[] = [
 					"Get Details Of A Single Agent Bot",
 					"Update An Agent Bot",
 					"Delete An Agent Bot"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Agent Bots"
+				],
+				"operation": [
+					"List All Agent Bots"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Agent Bots"
+				],
+				"operation": [
+					"List All Agent Bots"
 				]
 			}
 		}

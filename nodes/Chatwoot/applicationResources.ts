@@ -345,6 +345,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agent_bots"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -437,6 +447,46 @@ export const applicationResources: INodeProperties[] = [
 					"Get Details Of A Single Account Agent Bot",
 					"Update An Account Agent Bot",
 					"Delete An Account Agent Bot"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Account Agent Bots"
+				],
+				"operation": [
+					"List All Account Agent Bots"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Account Agent Bots"
+				],
+				"operation": [
+					"List All Account Agent Bots"
 				]
 			}
 		}
@@ -685,6 +735,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/agents"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -863,6 +923,46 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Add New Agent To Account",
 					"Update Agent In Account"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Agents"
+				],
+				"operation": [
+					"Get Account Agents"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Agents"
+				],
+				"operation": [
+					"Get Account Agents"
 				]
 			}
 		}
@@ -1088,9 +1188,6 @@ export const applicationResources: INodeProperties[] = [
 		"routing": {
 			"send": {
 				"paginate": "={{ true }}"
-			},
-			"output": {
-				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -1394,9 +1491,6 @@ export const applicationResources: INodeProperties[] = [
 		"routing": {
 			"send": {
 				"paginate": "={{ true }}"
-			},
-			"output": {
-				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -1688,6 +1782,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/campaigns"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -1852,6 +1956,46 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Create Campaign"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Campaigns"
+				],
+				"operation": [
+					"List Campaigns"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Campaigns"
+				],
+				"operation": [
+					"List Campaigns"
 				]
 			}
 		}
@@ -2167,6 +2311,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/canned_responses"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2262,6 +2416,46 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Delete Canned Response From Account"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Canned Responses"
+				],
+				"operation": [
+					"Get Account Canned Response"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Canned Responses"
+				],
+				"operation": [
+					"Get Account Canned Response"
 				]
 			}
 		}
@@ -2378,6 +2572,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/labels"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2455,6 +2665,46 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Contact Add Labels"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Contact Labels"
+				],
+				"operation": [
+					"List All Labels Of A Contact"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Contact Labels"
+				],
+				"operation": [
+					"List All Labels Of A Contact"
 				]
 			}
 		}
@@ -2551,6 +2801,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/conversations"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2619,6 +2885,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/{{$parameter[\"id\"]}}/contactable_inboxes"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2835,9 +3117,48 @@ export const applicationResources: INodeProperties[] = [
 		"routing": {
 			"send": {
 				"paginate": "={{ true }}"
-			},
-			"output": {
-				"maxResults": "={{ $value }}"
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact Conversations",
+					"Contactable Inboxes Get"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact Conversations",
+					"Contactable Inboxes Get"
+				]
 			}
 		}
 	},
@@ -3659,6 +3980,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/labels"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -3683,6 +4020,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/reporting_events"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			}
@@ -3973,9 +4320,48 @@ export const applicationResources: INodeProperties[] = [
 		"routing": {
 			"send": {
 				"paginate": "={{ true }}"
-			},
-			"output": {
-				"maxResults": "={{ $value }}"
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Conversations"
+				],
+				"operation": [
+					"List All Labels Of A Conversation",
+					"Get Conversation Reporting Events"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Conversations"
+				],
+				"operation": [
+					"List All Labels Of A Conversation",
+					"Get Conversation Reporting Events"
+				]
 			}
 		}
 	},
@@ -4714,6 +5100,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_attribute_definitions"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -4852,6 +5248,46 @@ export const applicationResources: INodeProperties[] = [
 		},
 		"displayOptions": {
 			"show": {
+				"resource": [
+					"Custom Attributes"
+				],
+				"operation": [
+					"Get Account Custom Attribute"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Custom Attributes"
+				],
+				"operation": [
+					"Get Account Custom Attribute"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
 				"resource": [
 					"Custom Attributes"
 				],
@@ -5131,6 +5567,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/custom_filters"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -5223,6 +5669,46 @@ export const applicationResources: INodeProperties[] = [
 					"Get Details Of A Single Custom Filter",
 					"Update A Custom Filter",
 					"Delete A Custom Filter"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Custom Filters"
+				],
+				"operation": [
+					"List All Filters"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Custom Filters"
+				],
+				"operation": [
+					"List All Filters"
 				]
 			}
 		}
@@ -5492,6 +5978,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -5540,6 +6042,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inboxes/{{$parameter[\"id\"]}}/message_templates"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -5576,6 +6094,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/inbox_members/{{$parameter[\"inbox_id\"]}}"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -5825,6 +6359,50 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Delete Agent In Inbox"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Inboxes"
+				],
+				"operation": [
+					"List All Inboxes",
+					"List Whatsapp Message Templates",
+					"Get Inbox Members"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Inboxes"
+				],
+				"operation": [
+					"List All Inboxes",
+					"List Whatsapp Message Templates",
+					"Get Inbox Members"
 				]
 			}
 		}
@@ -6428,6 +7006,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/integrations/apps"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -6506,6 +7100,46 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Update An Integrations Hook",
 					"Delete An Integration Hook"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Integrations"
+				],
+				"operation": [
+					"Get Details Of All Integrations"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Integrations"
+				],
+				"operation": [
+					"Get Details Of All Integrations"
 				]
 			}
 		}
@@ -6650,6 +7284,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/labels"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -6742,6 +7392,46 @@ export const applicationResources: INodeProperties[] = [
 					"Get Details Of A Single Label",
 					"Update A Label",
 					"Delete A Label"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Labels"
+				],
+				"operation": [
+					"List All Labels"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Labels"
+				],
+				"operation": [
+					"List All Labels"
 				]
 			}
 		}
@@ -6910,6 +7600,22 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/{{$parameter[\"conversation_id\"]}}/messages"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							},
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7075,6 +7781,46 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Update Message Status"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Messages"
+				],
+				"operation": [
+					"List All Messages"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Messages"
+				],
+				"operation": [
+					"List All Messages"
 				]
 			}
 		}
@@ -7503,6 +8249,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7539,6 +8295,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/conversations/"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7563,6 +8329,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/inbox"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7575,6 +8351,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/agent"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7587,6 +8373,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/summary_reports/team"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7623,6 +8419,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v2/accounts/{{$parameter[\"account_id\"]}}/reports/outgoing_messages_count"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			}
@@ -7904,9 +8710,56 @@ export const applicationResources: INodeProperties[] = [
 		"routing": {
 			"send": {
 				"paginate": "={{ true }}"
-			},
-			"output": {
-				"maxResults": "={{ $value }}"
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Reports"
+				],
+				"operation": [
+					"List All Conversation Statistics",
+					"Get Agent Conversation Metrics",
+					"Get Inbox Summary Report",
+					"Get Agent Summary Report",
+					"Get Team Summary Report",
+					"Get Outgoing Messages Count"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Reports"
+				],
+				"operation": [
+					"List All Conversation Statistics",
+					"Get Agent Conversation Metrics",
+					"Get Inbox Summary Report",
+					"Get Agent Summary Report",
+					"Get Team Summary Report",
+					"Get Outgoing Messages Count"
+				]
 			}
 		}
 	},
@@ -8559,6 +9412,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -8619,6 +9482,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/teams/{{$parameter[\"team_id\"]}}/team_members"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -8758,6 +9631,48 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Delete Agent In Team"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Teams"
+				],
+				"operation": [
+					"List All Teams",
+					"Get Team Members"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Teams"
+				],
+				"operation": [
+					"List All Teams",
+					"Get Team Members"
 				]
 			}
 		}
@@ -8952,6 +9867,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/webhooks"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "limit",
+								"properties": {
+									"maxResults": "={{ $parameter[\"returnAll\"] ? 100000 : $parameter[\"limit\"] }}"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -9030,6 +9955,46 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Update A Webhook",
 					"Delete A Webhook"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": true,
+		"description": "Whether to return all results or only up to a given limit",
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Webhooks"
+				],
+				"operation": [
+					"List All Webhooks"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Webhooks"
+				],
+				"operation": [
+					"List All Webhooks"
 				]
 			}
 		}

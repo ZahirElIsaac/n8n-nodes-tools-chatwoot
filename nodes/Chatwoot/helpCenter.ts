@@ -21,29 +21,34 @@ const unwrapPayload: PostReceiveAction = async function (items) {
 	});
 };
 
+const limitResults: PostReceiveAction = {
+	type: 'limit',
+	properties: { maxResults: '={{ $parameter["returnAll"] ? 100000 : $parameter["limit"] }}' },
+};
+
 const base = '=/api/v1/accounts/{{$parameter["account_id"]}}/portals';
 const portalUrl = `${base}/{{$parameter["portal_slug"]}}`;
 const collectionUrl = (kind: Kind) => `${portalUrl}/${kind === 'category' ? 'categories' : 'articles'}`;
 const itemUrl = (kind: Kind) => `${collectionUrl(kind)}/{{$parameter["${kind}_id"]}}`;
 
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
-const operation = (name: string, action: string, method: Method, url: string, admin = true): INodePropertyOptions => ({
+const operation = (name: string, action: string, method: Method, url: string, admin = true, list = false): INodePropertyOptions => ({
 	name,
 	value: name,
 	action: admin ? `${action} (Admin)` : action,
 	...(admin && { description: 'Requires an administrator token' }),
-	routing: { request: { method, url }, output: { postReceive: [unwrapPayload] } },
+	routing: { request: { method, url }, output: { postReceive: [unwrapPayload, ...(list ? [limitResults] : [])] } },
 });
 
 const OPERATIONS: Record<Kind, INodePropertyOptions[]> = {
 	portal: [
-		operation('Get Many', 'Get many portals', 'GET', base, false),
+		operation('Get Many', 'Get many portals', 'GET', base, false, true),
 		operation('Get', 'Get a portal', 'GET', portalUrl, false),
 		operation('Create', 'Create a portal', 'POST', base),
 		operation('Update', 'Update a portal', 'PATCH', portalUrl),
 	],
 	category: [
-		operation('Get Many', 'Get many categories', 'GET', collectionUrl('category'), false),
+		operation('Get Many', 'Get many categories', 'GET', collectionUrl('category'), false, true),
 		operation('Get', 'Get a category', 'GET', itemUrl('category')),
 		operation('Create', 'Create a category', 'POST', collectionUrl('category')),
 		operation('Update', 'Update a category', 'PATCH', itemUrl('category')),
@@ -185,6 +190,26 @@ const kindProperties = (kind: Kind): INodeProperties[] => {
 	];
 };
 
+const listFields = (kind: Kind): INodeProperties[] => [
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: show(kind, ['Get Many']),
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		default: 50,
+		typeOptions: { minValue: 1 },
+		description: 'Max number of results to return',
+		displayOptions: { show: { resource: [RESOURCE[kind]], operation: ['Get Many'], returnAll: [false] } },
+	},
+];
+
 const articlePaging: INodeProperties[] = [
 	{
 		displayName: 'Return All',
@@ -228,6 +253,8 @@ export const helpCenterProperties: INodeProperties[] = [
 	...kindProperties('portal'),
 	...kindProperties('category'),
 	...kindProperties('article'),
+	...listFields('portal'),
+	...listFields('category'),
 	...articlePaging,
 	articleFilters,
 ];

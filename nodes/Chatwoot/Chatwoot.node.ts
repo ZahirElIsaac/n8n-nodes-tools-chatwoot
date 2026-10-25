@@ -9,7 +9,7 @@ import { platformResources } from './platformResources';
 const withPagination = (properties: INodeProperties[]): INodeProperties[] => {
 	const paged = new Set(
 		properties
-			.filter((property) => property.name === 'returnAll')
+			.filter((property) => property.name === 'returnAll' && property.routing?.send?.paginate !== undefined)
 			.flatMap(({ displayOptions }) =>
 				(displayOptions?.show?.operation ?? []).map((operation) => `${displayOptions?.show?.resource?.[0]}|${operation}`),
 			),
