@@ -30,6 +30,8 @@ Operations that Chatwoot restricts to administrators are marked **(Admin)** in t
 
 Resources *Help Center Portal*, *Help Center Category* and *Help Center Article* cover list/get/create/update (and delete for categories and articles). Required fields are plain parameters; optional fields live in **Fields**. Article status: `0` draft, `1` published, `2` archived.
 
+List operations that Chatwoot paginates (conversations, contacts, articles, audit logs…) have **Return All** and **Limit**.
+
 ## Using nodes as AI tools
 
 Only required fields are shown by default; every optional field or filter is added on demand from the *Filters* / *Additional Fields* / *Fields* list (**Add Field**).

@@ -30,6 +30,8 @@ Las operaciones que Chatwoot restringe a administradores aparecen marcadas con *
 
 Los recursos *Help Center Portal*, *Help Center Category* y *Help Center Article* cubren listar/obtener/crear/actualizar (y borrar en categorías y artículos). Los campos requeridos son parámetros planos; los opcionales están en **Fields**. Estado de artículo: `0` borrador, `1` publicado, `2` archivado.
 
+Las operaciones de listado que Chatwoot pagina (conversaciones, contactos, artículos, audit logs…) tienen **Return All** y **Limit**.
+
 ## Uso de los nodos como tools de IA
 
 Por defecto solo se muestran los campos requeridos; cada campo o filtro opcional se agrega bajo demanda desde la lista *Filters* / *Additional Fields* / *Fields* (**Add Field**).
