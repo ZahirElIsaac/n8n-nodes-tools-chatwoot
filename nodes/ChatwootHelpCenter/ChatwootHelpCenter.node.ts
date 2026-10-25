@@ -42,6 +42,7 @@ export class ChatwootHelpCenter implements INodeType {
 		defaults: { name: 'Chatwoot Help Center' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
+		hidden: true,
 		usableAsTool: true,
 		credentials: [{ name: 'chatwootApi', required: true }],
 		properties: [
