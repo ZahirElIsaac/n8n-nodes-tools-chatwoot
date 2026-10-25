@@ -43,7 +43,7 @@ export class ChatwootHelpCenter implements INodeType {
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
-		credentials: [{ name: 'chatwootApi', required: true }],
+		credentials: [{ name: 'growyChatwootApi', required: true }],
 		properties: [
 			{
 				displayName: 'Resource',
@@ -220,7 +220,7 @@ export class ChatwootHelpCenter implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const credentials = await this.getCredentials('chatwootApi');
+		const credentials = await this.getCredentials('growyChatwootApi');
 		const root = `${String(credentials.baseUrl).replace(/\/+$/, '')}/api/v1/accounts/${credentials.accountId}/portals`;
 		const out: INodeExecutionData[] = [];
 
@@ -230,7 +230,7 @@ export class ChatwootHelpCenter implements INodeType {
 			body?: IDataObject,
 			qs?: IDataObject,
 		) =>
-			(await this.helpers.httpRequestWithAuthentication.call(this, 'chatwootApi', {
+			(await this.helpers.httpRequestWithAuthentication.call(this, 'growyChatwootApi', {
 				method,
 				url,
 				body,

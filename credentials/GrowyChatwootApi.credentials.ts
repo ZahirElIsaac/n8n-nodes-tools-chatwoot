@@ -1,8 +1,8 @@
 import type { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class ChatwootApi implements ICredentialType {
-	name = 'chatwootApi';
-	displayName = 'Chatwoot API';
+export class GrowyChatwootApi implements ICredentialType {
+	name = 'growyChatwootApi';
+	displayName = 'Chatwoot Help Center API';
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Base URL',
