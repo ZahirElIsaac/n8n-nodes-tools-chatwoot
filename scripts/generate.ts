@@ -12,7 +12,6 @@ const TARGETS: Array<[string, string, (path: string) => boolean]> = [
 	['nodes/Chatwoot/platformResources.ts', 'platformResources', (path) => path.startsWith('/platform/')],
 ];
 const METHODS = ['get', 'post', 'put', 'patch', 'delete'];
-const OMIT_EMPTY = "={{ $value === '' ? undefined : $value }}";
 const PARSE_JSON = '={{ typeof $value === \'string\' ? JSON.parse($value) : $value }}';
 const SPLIT_LIST = "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}";
 
@@ -62,11 +61,10 @@ const buildField = (name: string, schemaNode: Json, required: boolean, send?: Se
 	const route = (value?: string) => ({ routing: { send: { type: send, property: path, ...(value && { value }) } } });
 
 	if (values.length) {
-		const optionalQuery = !required && send === 'query';
 		property.type = 'options';
-		property.options = [...(optionalQuery ? [{ name: 'Any', value: '' }] : []), ...values.map((value) => ({ name: String(value), value }))];
-		property.default = optionalQuery ? '' : (schema.default ?? values[0]);
-		Object.assign(property, send && route(optionalQuery ? OMIT_EMPTY : undefined));
+		property.options = values.map((value) => ({ name: String(value), value }));
+		property.default = schema.default ?? values[0];
+		Object.assign(property, send && route());
 	} else if (type === 'integer' || type === 'number') {
 		property.type = 'number';
 		property.default = typeof schema.default === 'number' ? schema.default : 0;
@@ -82,9 +80,9 @@ const buildField = (name: string, schemaNode: Json, required: boolean, send?: Se
 		property.default = type === 'array' ? '[]' : '{}';
 		Object.assign(property, send && route(PARSE_JSON));
 	} else {
-		Object.assign(property, send && route(!required && send === 'query' ? OMIT_EMPTY : undefined));
+		Object.assign(property, send && route());
 	}
-	return { property: property as INodeProperties, rank: send === 'query' && !required ? 2 : 1 };
+	return { property: property as INodeProperties, rank: 1 };
 };
 
 const bodyFields = (operation: Json) => {
@@ -111,10 +109,12 @@ const operationFields = (pathItem: Json, operation: Json) => {
 			);
 		}
 	}
-	const fields = [...byName.values()];
-	const taken = new Set(byName.keys());
-	const body = bodyFields(operation).filter((field) => !taken.has(field.property.name));
-	return [...fields, ...body.filter((field) => field.property.required)];
+	const body = bodyFields(operation).filter((field) => !byName.has(field.property.name));
+	const all = [...byName.values(), ...body];
+	return {
+		required: all.filter((field) => field.property.required || field.rank === 0),
+		optional: all.filter((field) => !field.property.required && field.rank !== 0).map((field) => field.property),
+	};
 };
 
 const requestKey = (method: string, url: string) => `${method.toUpperCase()} ${url}`;
@@ -139,26 +139,23 @@ const build = (keep: (path: string) => boolean) => {
 				routing: { request: { method: method.toUpperCase() as 'GET', url } },
 			});
 
-			for (const field of operationFields(pathItem, operation)) {
+			const { required, optional } = operationFields(pathItem, operation);
+			for (const field of required) {
 				const key = JSON.stringify(field.property);
 				const entry = resource.fields.get(key) ?? { field, operations: [] };
 				entry.operations.push(value);
 				resource.fields.set(key, entry);
 			}
 
-			const optional = bodyFields(operation)
-				.filter((field) => !field.property.required)
-				.map((field) => field.property)
-				.sort((a, b) => a.displayName.localeCompare(b.displayName));
 			if (optional.length) {
 				resource.collections.push({
-					displayName: 'Additional Fields',
+					displayName: method === 'get' ? 'Filters' : 'Additional Fields',
 					name: 'additionalFields',
 					type: 'collection',
 					placeholder: 'Add Field',
 					default: {},
 					displayOptions: { show: { resource: [startCase(tag)], operation: [value] } },
-					options: optional as never,
+					options: optional.sort((a, b) => a.displayName.localeCompare(b.displayName)) as never,
 				});
 			}
 		}
