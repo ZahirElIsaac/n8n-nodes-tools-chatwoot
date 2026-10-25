@@ -1,6 +1,6 @@
 import type { INodeProperties, INodePropertyOptions } from 'n8n-workflow';
 import { applicationResources } from './application';
-import { helpCenterProperties, helpCenterResources } from './helpCenter';
+import { helpCenterProperties, helpCenterResources } from './help-center';
 import { withPagination } from './pagination';
 import { platformResources } from './platform';
 import { scope, selectors } from './selectors';
