@@ -27,9 +27,9 @@ async function webhooksRequest(
 	path = '',
 	body?: IDataObject,
 ) {
-	const { url } = await context.getCredentials('chatwootApi');
+	const { url } = await context.getCredentials('chatwootToolsApi');
 	const accountId = context.getNodeParameter('accountId') as number;
-	return (await context.helpers.httpRequestWithAuthentication.call(context, 'chatwootApi', {
+	return (await context.helpers.httpRequestWithAuthentication.call(context, 'chatwootToolsApi', {
 		method,
 		url: `${String(url).replace(/\/+$/, '')}/api/v1/accounts/${accountId}/webhooks${path}`,
 		body,
@@ -49,7 +49,7 @@ export class ChatwootTrigger implements INodeType {
 		defaults: { name: 'Chatwoot Trigger' },
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
-		credentials: [{ name: 'chatwootApi', required: true }],
+		credentials: [{ name: 'chatwootToolsApi', required: true }],
 		webhooks: [{ name: 'default', httpMethod: 'POST', responseMode: 'onReceived', path: 'webhook' }],
 		properties: [
 			{ displayName: 'Account ID', name: 'accountId', type: 'number', default: 0, required: true },
