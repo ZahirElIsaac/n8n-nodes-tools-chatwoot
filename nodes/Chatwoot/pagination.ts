@@ -4,7 +4,8 @@ export async function paginateByPage(
 	this: IExecutePaginationFunctions,
 	requestOptions: DeclarativeRestApiSettings.ResultOptions,
 ): Promise<INodeExecutionData[]> {
-	const limit = Number(requestOptions.maxResults) || Infinity;
+	const returnAll = this.getNodeParameter('returnAll', false) as boolean;
+	const limit = returnAll ? Infinity : Number(this.getNodeParameter('limit', 50));
 	const results: INodeExecutionData[] = [];
 	let page = Number(requestOptions.options.qs?.page) || 1;
 	let previous = '';
@@ -18,5 +19,5 @@ export async function paginateByPage(
 		previous = signature;
 		page++;
 	}
-	return results;
+	return results.slice(0, limit);
 }
