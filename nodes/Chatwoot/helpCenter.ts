@@ -9,12 +9,10 @@ const RESOURCE: Record<Kind, string> = {
 };
 
 export const helpCenterResources: INodePropertyOptions[] = [
-	{ name: 'Help Center Article', value: RESOURCE.article, description: 'Articles of a Help Center portal' },
-	{ name: 'Help Center Category', value: RESOURCE.category, description: 'Categories of a Help Center portal' },
-	{ name: 'Help Center Portal', value: RESOURCE.portal, description: 'Help Center portals' },
+	{ name: 'Article', value: RESOURCE.article, description: 'Articles of a portal' },
+	{ name: 'Category', value: RESOURCE.category, description: 'Categories of a portal' },
+	{ name: 'Portal', value: RESOURCE.portal, description: 'Portals of the Help Center' },
 ];
-
-const OMIT_EMPTY = "={{ $value === '' ? undefined : $value }}";
 
 const unwrapPayload: PostReceiveAction = async function (items) {
 	return items.flatMap((item) => {
@@ -180,23 +178,26 @@ const kindProperties = (kind: Kind): INodeProperties[] => {
 	];
 };
 
-const articleFilters: INodeProperties[] = [
-	field('Page', 'page', 'number', 'query', { default: 1, typeOptions: { minValue: 1 } }),
-	field('Search Query', 'query', 'string', 'query', { routing: { send: { type: 'query', property: 'query', value: OMIT_EMPTY } } }),
-	field('Category Slug', 'category_slug', 'string', 'query', { routing: { send: { type: 'query', property: 'category_slug', value: OMIT_EMPTY } } }),
-	field('Author ID', 'author_id', 'string', 'query', { routing: { send: { type: 'query', property: 'author_id', value: OMIT_EMPTY } } }),
-	field('Locale', 'locale', 'string', 'query', { routing: { send: { type: 'query', property: 'locale', value: OMIT_EMPTY } } }),
-	field('Status', 'status_filter', 'string', 'query', {
-		type: 'options',
-		options: [{ name: 'Any', value: '' }, ...STATUS],
-		default: '',
-		routing: { send: { type: 'query', property: 'status', value: OMIT_EMPTY } },
-	}),
-].map((property) => ({ ...property, displayOptions: show('article', ['Get Many']) }));
+const articleFilters: INodeProperties = {
+	displayName: 'Filters',
+	name: 'filters',
+	type: 'collection',
+	placeholder: 'Add Filter',
+	default: {},
+	displayOptions: show('article', ['Get Many']),
+	options: [
+		field('Author ID', 'author_id', 'string', 'query'),
+		field('Category Slug', 'category_slug', 'string', 'query'),
+		field('Locale', 'locale', 'string', 'query'),
+		field('Page', 'page', 'number', 'query', { default: 1, typeOptions: { minValue: 1 } }),
+		field('Search Query', 'query', 'string', 'query'),
+		field('Status', 'status', 'number', 'query', { type: 'options', options: STATUS, default: 1 }),
+	],
+};
 
 export const helpCenterProperties: INodeProperties[] = [
 	...kindProperties('portal'),
 	...kindProperties('category'),
 	...kindProperties('article'),
-	...articleFilters,
+	articleFilters,
 ];
