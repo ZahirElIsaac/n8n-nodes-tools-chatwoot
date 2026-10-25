@@ -1,40 +1,68 @@
 # @growy/n8n-nodes-tools-chatwoot
 
-[English](README.md) | Español
+[English](https://github.com/ZahirElIsaac/n8n-nodes-tools-chatwoot/blob/main/README.md) | Español
 
-Community nodes de n8n para toda la API de **Chatwoot**. Cada nodo de acción también sirve como **tool de AI Agent**.
+Community nodes de n8n para toda la API de **Chatwoot**: conversaciones, contactos, inboxes, equipos, Help Center, reportes, webhooks y la Platform API de Super Admin. Cada nodo de acción también funciona como **tool de AI Agent** (*Chatwoot Tool*).
 
-Las operaciones se generan desde el OpenAPI oficial de Chatwoot.
+- Las operaciones se generan desde el OpenAPI oficial de Chatwoot, así que siguen sincronizadas con la API.
+- Las operaciones restringidas a administradores aparecen marcadas con **(Admin)**.
+- Las operaciones de listado tienen **Return All** y **Limit**.
 
 ## Instalación
 
 En n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools-chatwoot`.
 
-## Nodos y credenciales
+## Credenciales
 
-| Nodo | API | Token (credencial Chatwoot Tools API) | Dueño del token |
-| --- | --- | --- | --- |
-| **Chatwoot** | *Application* (`/api/v1`, `/api/v2`) + Help Center | Token de acceso de usuario | Administrador o agente (Perfil → Access Token) |
-| | *Platform* (`/platform/api/v1`): cuentas, usuarios de cuenta, usuarios, agent bots | Token de Platform App | Super Admin → Platform Apps (solo self-hosted) |
-| **Chatwoot Trigger** | Webhooks (registra y elimina el webhook automáticamente) | Token de acceso de usuario | Administrador |
+Un único tipo de credencial, **Chatwoot Tools API**:
 
-Hay un único tipo de credencial, **Chatwoot Tools API** (URL + Access Token). Crea una credencial por token (por ejemplo una de admin y otra de Platform App) y elige la correcta en cada nodo. El nodo **Chatwoot** elige la API con su campo *API*, luego *Resource* (Account, Contacts, Conversations, Inboxes & Campaigns, Labels & Attributes, Automation, Help Center), *Entity* (por ejemplo Article) y *Operation* y también está disponible como tool de IA (**Chatwoot Tool**).
+| Campo | Valor |
+| --- | --- |
+| Chatwoot URL | URL base, por ejemplo `https://app.chatwoot.com` |
+| Token Type | *User (Admin / Agent)* o *Platform App (Super Admin)* |
+| Access Token | El token que corresponde al tipo |
 
-El **Account ID** es un campo requerido en cada operación.
+Crea una credencial por token. El botón **Test** valida URL, token y tipo (`GET /api/v1/profile` para usuarios, `GET /platform/api/v1/agent_bots` para Platform Apps).
 
-## Roles
+| Token | Dónde obtenerlo | Con qué usarlo |
+| --- | --- | --- |
+| Token de usuario | Chatwoot → Perfil → Access Token | Nodo **Chatwoot**, API *Application* |
+| Token de Platform App | Super Admin → Platform Apps (solo self-hosted) | Nodo **Chatwoot**, API *Platform* |
 
-Las operaciones que Chatwoot restringe a administradores aparecen marcadas con **(Admin)** en la lista. Un token de agente recibe `401/403` en ellas. Una Platform App solo ve los objetos que creó o a los que se le dio acceso.
+Una Platform App solo ve los objetos que creó o a los que se le dio acceso (si no, `401 Non permissible resource`).
 
-## Help Center
+## Nodos
 
-Los recursos *Help Center Portal*, *Help Center Category* y *Help Center Article* cubren listar/obtener/crear/actualizar (y borrar en categorías y artículos). Los campos requeridos son parámetros planos; los opcionales están en **Fields**. Estado de artículo: `0` borrador, `1` publicado, `2` archivado.
+### Chatwoot
 
-Las operaciones de listado que Chatwoot pagina (conversaciones, contactos, artículos, audit logs…) tienen **Return All** y **Limit**.
+Elige, en orden: **API** → **Resource** → **Entity** → **Operation**. El **Account ID** es un campo requerido en cada operación.
+
+| API | Resource | Entities |
+| --- | --- | --- |
+| Application | Account | Account, Agents, Teams, Profile, Audit Logs, Reports |
+| | Contacts | Contacts, Contact Labels |
+| | Conversations | Conversations, Conversation Assignments, Messages, Canned Responses, Custom Filters |
+| | Inboxes & Campaigns | Inboxes, Campaigns |
+| | Labels & Attributes | Labels, Custom Attributes |
+| | Automation | Automation Rule, Webhooks, Integrations, Account Agent Bots |
+| | Help Center | Portal, Category, Article |
+| Platform | Platform | Accounts, Account Users, Users, Agent Bots |
+
+Solo se muestran los campos requeridos. Los campos y filtros opcionales se agregan bajo demanda desde la lista **Filters** / **Additional Fields** / **Fields** (**Add Field**).
+
+**Roles.** Las operaciones marcadas **(Admin)** necesitan un token de administrador; un token de agente recibe `401/403`. El resto funciona con tokens de agente.
+
+**Listados.** *Return All* trae todas las páginas; con él apagado, *Limit* (50 por defecto) limita los resultados.
+
+**Help Center.** El spec de Chatwoot no documenta listar, actualizar ni borrar categorías y artículos, así que esa parte se mantiene a mano. Estado de artículo: `0` borrador, `1` publicado, `2` archivado. Crear un artículo requiere **Author ID**.
+
+### Chatwoot Trigger
+
+Inicia un workflow con eventos de Chatwoot (`message_created`, `conversation_created`, `conversation_status_changed`, `conversation_updated`, `message_updated`, `contact_created`, `contact_updated`, `webwidget_triggered`, `conversation_typing_on`, `conversation_typing_off`). Registra el webhook al activar el workflow y lo elimina al desactivarlo. Requiere un token de administrador.
 
 ## Uso de los nodos como tools de IA
 
-Por defecto solo se muestran los campos requeridos; cada campo o filtro opcional se agrega bajo demanda desde la lista *Filters* / *Additional Fields* / *Fields* (**Add Field**).
+Agrega **Chatwoot Tool** a un AI Agent y marca como *Defined by agent* los parámetros que debe completar el agente. Los campos requeridos son parámetros planos; los opcionales están dentro de las listas **Filters** / **Additional Fields**.
 
 ## Desarrollo
 
@@ -44,4 +72,22 @@ pnpm build   # descarga el OpenAPI de Chatwoot, regenera las operaciones (listan
 pnpm publish --access public --no-git-checks
 ```
 
-`nodes/Chatwoot/applicationResources.ts` y `platformResources.ts` se generan desde `openapi.json` (spec oficial de Chatwoot) con `scripts/generate.ts`; no se edita a mano. Las operaciones de Help Center no están en el spec y viven en `nodes/Chatwoot/helpCenter.ts`.
+```
+credentials/                 Chatwoot Tools API
+nodes/Chatwoot/
+  Chatwoot.node.ts           definición del nodo
+  properties.ts              composición API → Resource → Entity → Operation
+  selectors.ts, domains.ts   menús Resource/Entity
+  pagination.ts              Return All / Limit
+  application/, platform/    operaciones generadas, un archivo por entidad
+  helpCenter/                operaciones de Help Center escritas a mano
+nodes/ChatwootTrigger/       trigger por webhook
+scripts/generate.ts          OpenAPI → nodes/Chatwoot/{application,platform}
+openapi.json                 spec oficial de Chatwoot
+```
+
+No edites a mano `nodes/Chatwoot/application/` ni `platform/`: `pnpm build` los regenera desde `openapi.json`.
+
+## Licencia
+
+MIT
