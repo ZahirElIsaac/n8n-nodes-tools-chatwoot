@@ -1,13 +1,42 @@
-# @growy/n8n-tools-chatwoot
+# @growy/n8n-nodes-tools-chatwoot
 
-Nodos de n8n para Chatwoot. Actualmente: **Chatwoot Help Center** (portales, categorías y artículos), utilizable también como tool de un AI Agent.
+English | [Español](README.es.md)
 
-## Credenciales
-Usa la credencial nativa **Chatwoot API** de n8n (URL y Access Token). El Account ID se indica en el nodo.
+n8n community node to manage the **Chatwoot Help Center** (portals, categories and articles). It can also be used as an AI Agent tool.
 
-## Desarrollo
-```
+## Installation
+
+In n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools-chatwoot`.
+
+## Credentials
+
+Uses n8n's native **Chatwoot API** credential:
+
+- **URL:** your Chatwoot base URL (e.g. `https://app.chatwoot.com`).
+- **Access Token:** Profile → Access Token in Chatwoot.
+
+The **Account ID** is set on the node itself (default `1`).
+
+## Operations
+
+| Resource | Operations                            |
+| -------- | ------------------------------------- |
+| Portal   | Get Many, Get, Create, Update         |
+| Category | Get Many, Get, Create, Update, Delete |
+| Article  | Get Many, Get, Create, Update, Delete |
+
+- **Portal Slug:** required for Category and Article, and for Portal Get/Update.
+- **Article → Get Many:** supports *Return All*, *Limit* and filters (author, category, locale, search and status).
+- **Article status:** `0` draft, `1` published, `2` archived.
+
+## Use as an AI Agent tool
+
+The node has `usableAsTool` enabled. n8n only lets the AI fill standalone node parameters; optional fields grouped under *Fields* and *Filters* are not visible to the agent.
+
+## Development
+
+```bash
 pnpm install
 pnpm build
-npm publish
+pnpm publish --access public --no-git-checks
 ```
