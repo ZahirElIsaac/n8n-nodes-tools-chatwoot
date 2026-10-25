@@ -3,7 +3,30 @@ import type { INodeProperties, INodePropertyOptions, INodeType, INodeTypeDescrip
 import { applicationResources } from './applicationResources';
 import { type Api, DOMAINS } from './domains';
 import { helpCenterProperties, helpCenterResources } from './helpCenter';
+import { paginateByPage } from './pagination';
 import { platformResources } from './platformResources';
+
+const withPagination = (properties: INodeProperties[]): INodeProperties[] => {
+	const paged = new Set(
+		properties
+			.filter((property) => property.name === 'returnAll')
+			.flatMap(({ displayOptions }) =>
+				(displayOptions?.show?.operation ?? []).map((operation) => `${displayOptions?.show?.resource?.[0]}|${operation}`),
+			),
+	);
+	return properties.map((property) => {
+		if (property.name !== 'operation' || property.type !== 'options') return property;
+		const resource = property.displayOptions?.show?.resource?.[0];
+		return {
+			...property,
+			options: (property.options as INodePropertyOptions[]).map((option) =>
+				paged.has(`${resource}|${option.value}`)
+					? { ...option, routing: { ...option.routing, operations: { pagination: paginateByPage } } }
+					: option,
+			),
+		};
+	});
+};
 
 const byName = (a: INodePropertyOptions, b: INodePropertyOptions) => a.name.localeCompare(b.name);
 
@@ -48,7 +71,7 @@ const [platformSelector, ...platformOperations] = platformResources;
 
 const application: INodeProperties[] = [
 	...selectors('application', [...(applicationSelector.options as INodePropertyOptions[]), ...helpCenterResources]),
-	...scope('application', [...applicationOperations, ...helpCenterProperties]),
+	...scope('application', withPagination([...applicationOperations, ...helpCenterProperties])),
 ];
 const platform: INodeProperties[] = [
 	...selectors('platform', platformSelector.options as INodePropertyOptions[]),
