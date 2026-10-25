@@ -80,13 +80,11 @@ export class ChatwootHelpCenter implements INodeType {
 			]),
 			{
 				...text('Portal Slug', 'portalSlug', true, 'Slug of the portal'),
-				displayOptions: {
-					show: {
-						resource: ['portal', 'category', 'article'],
-						operation: ['get', 'update', 'getAll', 'create', 'delete'],
-					},
-					hide: { resource: ['portal'], operation: ['getAll', 'create'] },
-				},
+				displayOptions: { show: show('portal', ['get', 'update']) },
+			},
+			{
+				...text('Portal Slug', 'portalSlug', true, 'Slug of the portal'),
+				displayOptions: { show: { resource: ['category', 'article'] } },
 			},
 			{
 				...text('Category ID', 'categoryId', true),
@@ -246,47 +244,45 @@ export class ChatwootHelpCenter implements INodeType {
 			const fields = () => this.getNodeParameter('fields', i, {}) as IDataObject;
 
 			const isPortal = resource === 'portal';
-			const slugUrl = () => `${root}/${param('portalSlug')}`;
-			const base = () => (isPortal ? slugUrl() : `${slugUrl()}/${resource === 'category' ? 'categories' : 'articles'}`);
-			const idName = resource === 'category' ? 'categoryId' : 'articleId';
-			const itemUrl = () => `${base()}/${param(idName)}`;
+			const collection = () =>
+				isPortal ? root : `${root}/${param('portalSlug')}/${resource === 'category' ? 'categories' : 'articles'}`;
+			const itemUrl = () =>
+				isPortal ? `${root}/${param('portalSlug')}` : `${collection()}/${param(resource === 'category' ? 'categoryId' : 'articleId')}`;
 
 			let data: IDataObject | IDataObject[];
 			switch (operation) {
 				case 'getAll': {
-					if (isPortal) {
-						data = await call('GET', root);
-					} else if (resource === 'category') {
-						data = await call('GET', base());
-					} else {
-						const qs = this.getNodeParameter('filters', i, {}) as IDataObject;
-						const all = this.getNodeParameter('returnAll', i) as boolean;
-						const limit = all ? Infinity : (this.getNodeParameter('limit', i) as number);
-						const items: IDataObject[] = [];
-						for (let page = 1; items.length < limit; page++) {
-							const res = (await call('GET', base(), undefined, { ...qs, page })) as IDataObject;
-							const batch = ((res.payload as IDataObject[]) ?? []).filter(Boolean);
-							items.push(...batch);
-							if (!batch.length) break;
-						}
-						data = items.slice(0, limit === Infinity ? undefined : limit);
+					if (resource !== 'article') {
+						data = await call('GET', collection());
+						break;
 					}
+					const qs = this.getNodeParameter('filters', i, {}) as IDataObject;
+					const limit = this.getNodeParameter('returnAll', i)
+						? Infinity
+						: (this.getNodeParameter('limit', i) as number);
+					const items: IDataObject[] = [];
+					for (let page = 1; items.length < limit; page++) {
+						const res = await call('GET', collection(), undefined, { ...qs, page });
+						const batch = (res.payload as IDataObject[]) ?? [];
+						if (!batch.length) break;
+						items.push(...batch);
+					}
+					data = items.slice(0, limit);
 					break;
 				}
 				case 'get':
-					data = await call('GET', isPortal ? base() : itemUrl());
+					data = await call('GET', itemUrl());
 					break;
 				case 'create': {
-					const body: IDataObject = isPortal
-						? { name: param('name'), slug: param('slug'), ...fields() }
-						: resource === 'category'
-							? { name: param('name'), slug: param('slug'), ...fields() }
-							: { title: param('title'), content: param('content'), ...fields() };
-					data = await call('POST', isPortal ? root : base(), body);
+					const required =
+						resource === 'article'
+							? { title: param('title'), content: param('content') }
+							: { name: param('name'), slug: param('slug') };
+					data = await call('POST', collection(), { ...required, ...fields() });
 					break;
 				}
 				case 'update':
-					data = await call('PATCH', isPortal ? base() : itemUrl(), fields());
+					data = await call('PATCH', itemUrl(), fields());
 					break;
 				default:
 					await call('DELETE', itemUrl());
