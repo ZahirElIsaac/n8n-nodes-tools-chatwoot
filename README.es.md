@@ -38,9 +38,8 @@ Por defecto solo se muestran los campos requeridos; cada campo o filtro opcional
 
 ```bash
 pnpm install
-pnpm up-swagger   # descarga el OpenAPI de Chatwoot, regenera nodes/*/resources.ts y lista operaciones nuevas/eliminadas
-pnpm build
+pnpm build   # descarga el OpenAPI de Chatwoot, regenera las operaciones (listando las nuevas/eliminadas) y compila
 pnpm publish --access public --no-git-checks
 ```
 
-`nodes/*/resources.ts` se genera desde `openapi.json` (spec oficial de Chatwoot) con `scripts/generate.ts`; no se edita a mano. Las operaciones de Help Center no están en el spec y viven en `nodes/Chatwoot/helpCenter.ts`.
+`nodes/Chatwoot/applicationResources.ts` y `platformResources.ts` se generan desde `openapi.json` (spec oficial de Chatwoot) con `scripts/generate.ts`; no se edita a mano. Las operaciones de Help Center no están en el spec y viven en `nodes/Chatwoot/helpCenter.ts`.
