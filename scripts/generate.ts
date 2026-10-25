@@ -5,6 +5,18 @@ import { markAdminOperations } from './admin.ts';
 type Json = Record<string, any>;
 type Send = 'body' | 'query';
 
+const SPEC_URL = 'https://raw.githubusercontent.com/chatwoot/chatwoot/develop/swagger/swagger.json';
+
+if (process.argv.includes('--update')) {
+	try {
+		const response = await fetch(SPEC_URL);
+		if (!response.ok) throw new Error(`HTTP ${response.status}`);
+		writeFileSync('openapi.json', `${JSON.stringify(await response.json(), null, 2)}\n`);
+	} catch (error) {
+		console.warn(`Could not download the Chatwoot spec (${error}); using the local openapi.json`);
+	}
+}
+
 const spec: Json = JSON.parse(readFileSync('openapi.json', 'utf8'));
 
 const TARGETS: Array<[string, string, (path: string) => boolean]> = [
