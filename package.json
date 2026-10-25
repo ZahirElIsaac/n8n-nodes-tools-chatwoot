@@ -1,6 +1,6 @@
 {
   "name": "@growy/n8n-nodes-tools-chatwoot",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "n8n community nodes and AI tools for the Chatwoot API",
   "keywords": [
     "n8n-community-node-package",
@@ -29,7 +29,7 @@
       "dist/nodes/ChatwootTrigger/ChatwootTrigger.node.js"
     ],
     "credentials": [
-      "dist/credentials/ChatwootPlatformApi.credentials.js"
+      "dist/credentials/ChatwootToolsApi.credentials.js"
     ]
   },
   "devDependencies": {
