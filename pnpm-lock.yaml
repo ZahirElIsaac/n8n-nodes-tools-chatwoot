@@ -12,7 +12,7 @@ importers:
         specifier: ^22.0.0
         version: 22.20.5
       n8n-workflow:
-        specifier: '*'
+        specifier: ^2.16.0
         version: 2.16.0
       typescript:
         specifier: ^5.6.0

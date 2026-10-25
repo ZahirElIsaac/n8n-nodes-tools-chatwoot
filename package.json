@@ -1,6 +1,6 @@
 {
   "name": "@growy/n8n-nodes-tools-chatwoot",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "n8n community nodes and AI tools for the Chatwoot API",
   "keywords": [
     "n8n-community-node-package",
@@ -11,7 +11,6 @@
   ],
   "license": "MIT",
   "author": "Growy",
-  "main": "index.js",
   "files": [
     "dist"
   ],
@@ -19,9 +18,11 @@
     "access": "public"
   },
   "scripts": {
-    "generate": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate.ts",
-    "build": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate.ts --update && tsc && for d in nodes/*/; do cp $d*.svg dist/$d; done",
-    "prepublishOnly": "pnpm run build"
+    "generate": "node --experimental-strip-types --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate.ts",
+    "compile": "tsc && for d in nodes/*/; do cp $d*.svg dist/$d; done",
+    "check": "node --experimental-strip-types --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check.ts",
+    "build": "pnpm generate --update && pnpm compile && pnpm check",
+    "prepublishOnly": "pnpm compile && pnpm check"
   },
   "n8n": {
     "n8nNodesApiVersion": 1,
@@ -35,11 +36,11 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "n8n-workflow": "*",
+    "n8n-workflow": "^2.16.0",
     "typescript": "^5.6.0"
   },
   "peerDependencies": {
-    "n8n-workflow": "*"
+    "n8n-workflow": ">=2.0.0"
   },
   "homepage": "https://github.com/ZahirElIsaac/n8n-nodes-tools-chatwoot#readme",
   "repository": {

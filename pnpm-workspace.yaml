@@ -1,2 +1,4 @@
+packages:
+  - .
 allowBuilds:
   isolated-vm: false
