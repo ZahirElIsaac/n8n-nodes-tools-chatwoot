@@ -1007,6 +1007,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/audit_logs"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "audit_logs"
+								}
+							}
+						]
 					}
 				}
 			}
@@ -1028,6 +1038,59 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Get Account Audit Logs"
 				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": false,
+		"description": "Whether to return all results or only up to a given limit",
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			}
+		},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Audit Logs"
+				],
+				"operation": [
+					"Get Account Audit Logs"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Audit Logs"
+				],
+				"operation": [
+					"Get Account Audit Logs"
+				]
+			}
+		},
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			},
+			"output": {
+				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -1161,6 +1224,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/automation_rules"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -1271,6 +1344,59 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Delete Automation Rule From Account"
 				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": false,
+		"description": "Whether to return all results or only up to a given limit",
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			}
+		},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Automation Rule"
+				],
+				"operation": [
+					"Get Account Automation Rule"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Automation Rule"
+				],
+				"operation": [
+					"Get Account Automation Rule"
+				]
+			}
+		},
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			},
+			"output": {
+				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -2355,6 +2481,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2427,6 +2563,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/search"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2439,6 +2585,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "POST",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/contacts/filter"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -2625,6 +2781,63 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Contact Merge"
 				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": false,
+		"description": "Whether to return all results or only up to a given limit",
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			}
+		},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact List",
+					"Contact Search",
+					"Contact Filter"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact List",
+					"Contact Search",
+					"Contact Filter"
+				]
+			}
+		},
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			},
+			"output": {
+				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -3294,6 +3507,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "data.payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -3318,6 +3541,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "POST",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/conversations/filter"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "data.payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -3688,6 +3921,61 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Conversation Add Labels"
 				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": false,
+		"description": "Whether to return all results or only up to a given limit",
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			}
+		},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Conversations"
+				],
+				"operation": [
+					"Conversation List",
+					"Conversation Filter"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Conversations"
+				],
+				"operation": [
+					"Conversation List",
+					"Conversation Filter"
+				]
+			}
+		},
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			},
+			"output": {
+				"maxResults": "={{ $value }}"
 			}
 		}
 	},
@@ -7193,6 +7481,16 @@ export const applicationResources: INodeProperties[] = [
 					"request": {
 						"method": "GET",
 						"url": "=/api/v1/accounts/{{$parameter[\"account_id\"]}}/reporting_events"
+					},
+					"output": {
+						"postReceive": [
+							{
+								"type": "rootProperty",
+								"properties": {
+									"property": "payload"
+								}
+							}
+						]
 					}
 				}
 			},
@@ -7556,6 +7854,59 @@ export const applicationResources: INodeProperties[] = [
 				"operation": [
 					"Get Outgoing Messages Count"
 				]
+			}
+		}
+	},
+	{
+		"displayName": "Return All",
+		"name": "returnAll",
+		"type": "boolean",
+		"default": false,
+		"description": "Whether to return all results or only up to a given limit",
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			}
+		},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Reports"
+				],
+				"operation": [
+					"Get Account Reporting Events"
+				]
+			}
+		}
+	},
+	{
+		"displayName": "Limit",
+		"name": "limit",
+		"type": "number",
+		"default": 50,
+		"typeOptions": {
+			"minValue": 1
+		},
+		"description": "Max number of results to return",
+		"displayOptions": {
+			"show": {
+				"returnAll": [
+					false
+				],
+				"resource": [
+					"Reports"
+				],
+				"operation": [
+					"Get Account Reporting Events"
+				]
+			}
+		},
+		"routing": {
+			"send": {
+				"paginate": "={{ true }}"
+			},
+			"output": {
+				"maxResults": "={{ $value }}"
 			}
 		}
 	},
