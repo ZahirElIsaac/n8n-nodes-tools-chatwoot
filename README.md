@@ -3,7 +3,7 @@
 Nodos de n8n para Chatwoot. Actualmente: **Chatwoot Help Center** (portales, categorías y artículos), utilizable también como tool de un AI Agent.
 
 ## Credenciales
-Base URL, Account ID y API Access Token (Perfil → Access Token en Chatwoot).
+Usa la credencial nativa **Chatwoot API** de n8n (URL y Access Token). El Account ID se indica en el nodo.
 
 ## Desarrollo
 ```

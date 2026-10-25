@@ -1,6 +1,6 @@
 {
   "name": "@growy/n8n-nodes-tools-chatwoot",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "n8n community nodes and AI tools for Chatwoot (Help Center)",
   "keywords": ["n8n-community-node-package", "n8n", "chatwoot", "help-center"],
   "license": "MIT",
@@ -14,7 +14,6 @@
   },
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": ["dist/credentials/GrowyChatwootApi.credentials.js"],
     "nodes": ["dist/nodes/ChatwootHelpCenter/ChatwootHelpCenter.node.js"]
   },
   "devDependencies": {
