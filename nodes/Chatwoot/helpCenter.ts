@@ -178,6 +178,28 @@ const kindProperties = (kind: Kind): INodeProperties[] => {
 	];
 };
 
+const articlePaging: INodeProperties[] = [
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: show('article', ['Get Many']),
+		routing: { send: { paginate: '={{ true }}' } },
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		default: 50,
+		typeOptions: { minValue: 1 },
+		description: 'Max number of results to return',
+		displayOptions: { show: { resource: [RESOURCE.article], operation: ['Get Many'], returnAll: [false] } },
+		routing: { send: { paginate: '={{ true }}' }, output: { maxResults: '={{ $value }}' } },
+	},
+];
+
 const articleFilters: INodeProperties = {
 	displayName: 'Filters',
 	name: 'filters',
@@ -199,5 +221,6 @@ export const helpCenterProperties: INodeProperties[] = [
 	...kindProperties('portal'),
 	...kindProperties('category'),
 	...kindProperties('article'),
+	...articlePaging,
 	articleFilters,
 ];
