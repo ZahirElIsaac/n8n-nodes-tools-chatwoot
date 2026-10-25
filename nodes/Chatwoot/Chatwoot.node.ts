@@ -9,7 +9,7 @@ type Api = 'application' | 'platform';
 const scope = (api: Api, properties: INodeProperties[]): INodeProperties[] =>
 	properties.map((property) => ({
 		...property,
-		displayOptions: { ...property.displayOptions, show: { authentication: [api], ...property.displayOptions?.show } },
+		displayOptions: { ...property.displayOptions, show: { api: [api], ...property.displayOptions?.show } },
 	}));
 
 const byName = (a: INodePropertyOptions, b: INodePropertyOptions) => a.name.localeCompare(b.name);
@@ -38,23 +38,20 @@ export class Chatwoot implements INodeType {
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
-		credentials: [
-			{ name: 'chatwootApi', required: true, displayOptions: { show: { authentication: ['application'] } } },
-			{ name: 'chatwootPlatformApi', required: true, displayOptions: { show: { authentication: ['platform'] } } },
-		],
+		credentials: [{ name: 'chatwootToolsApi', required: true }],
 		requestDefaults: {
 			headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 			baseURL: '={{$credentials.url}}',
 		},
 		properties: [
 			{
-				displayName: 'Authentication',
-				name: 'authentication',
+				displayName: 'API',
+				name: 'api',
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{ name: 'Application API (Admin / Agent Token)', value: 'application' },
-					{ name: 'Platform API (Super Admin Token)', value: 'platform' },
+					{ name: 'Application (Admin / Agent Token)', value: 'application' },
+					{ name: 'Platform (Super Admin Token)', value: 'platform' },
 				],
 				default: 'application',
 			},
