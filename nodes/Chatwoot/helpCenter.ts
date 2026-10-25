@@ -143,7 +143,7 @@ const kindProperties = (kind: Kind): INodeProperties[] => {
 			options: OPERATIONS[kind],
 			default: 'Get Many',
 		},
-		field('Account ID', 'account_id', 'number', 'none', { required: true, default: 1, displayOptions: show(kind) }),
+		field('Account ID', 'account_id', 'number', 'none', { required: true, default: 0, displayOptions: show(kind) }),
 		field('Portal Slug', 'portal_slug', 'string', 'none', {
 			required: true,
 			description: 'Slug of the portal',
