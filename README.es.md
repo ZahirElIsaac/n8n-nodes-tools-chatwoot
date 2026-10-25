@@ -4,7 +4,7 @@
 
 Community nodes de n8n para toda la API de **Chatwoot**. Cada nodo de acción también sirve como **tool de AI Agent**.
 
-Basado en [devlikeapro/n8n-nodes-chatwoot](https://github.com/devlikeapro/n8n-nodes-chatwoot) (MIT) y [n8n-openapi-node](https://github.com/devlikeapro/n8n-openapi-node): las operaciones se generan desde el OpenAPI oficial de Chatwoot.
+Las operaciones se generan desde el OpenAPI oficial de Chatwoot.
 
 ## Instalación
 
@@ -36,9 +36,8 @@ n8n solo deja que la IA complete parámetros planos, no las colecciones *Additio
 
 ```bash
 pnpm install
-pnpm up-swagger   # actualiza openapi.json y regenera nodes/*/resources.ts
 pnpm build
 pnpm publish --access public --no-git-checks
 ```
 
-`nodes/*/resources.ts` lo genera `scripts/generate.ts`; no se edita a mano.
+Las operaciones viven en `nodes/*/resources.ts`; `openapi.json` es el spec oficial de Chatwoot, y sirve de referencia para revisar cobertura.
