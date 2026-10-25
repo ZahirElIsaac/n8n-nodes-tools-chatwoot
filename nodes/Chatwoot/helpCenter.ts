@@ -118,7 +118,14 @@ const optional: Record<Kind, INodeProperties[]> = {
 
 const requiredOnCreate: Record<Kind, INodeProperties[]> = {
 	portal: [field('Name', 'name', 'string', 'body', { required: true }), field('Slug', 'slug', 'string', 'body', { required: true })],
-	category: [field('Name', 'name', 'string', 'body', { required: true }), field('Slug', 'slug', 'string', 'body', { required: true })],
+	category: [
+		field('Name', 'name', 'string', 'body', { required: true }),
+		field('Slug', 'slug', 'string', 'body', { required: true }),
+		field('Locale', 'locale', 'string', 'body', {
+			description: "Locale of the category (e.g. es). It must be one of the portal's locales",
+			routing: { send: { type: 'body', property: 'locale', value: '={{ $value || undefined }}' } },
+		}),
+	],
 	article: [
 		field('Title', 'title', 'string', 'body', { required: true }),
 		field('Content', 'content', 'string', 'body', { required: true, description: 'Article body (Markdown)' }),
