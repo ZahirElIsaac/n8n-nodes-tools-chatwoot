@@ -18,7 +18,7 @@ In n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools
 | **Chatwoot Platform** | Platform (`/platform/api/v1`): accounts, account users, users, agent bots | **Chatwoot Platform API** (URL + Platform App token) | Super Admin → Platform Apps (self-hosted only) |
 | **Chatwoot Trigger** | Webhooks (registers and removes the webhook automatically) | **Chatwoot API** | Administrator |
 
-The **Account ID** is set on each operation (default `1`).
+The **Account ID** is a required field on each operation.
 
 ## Roles
 
@@ -36,8 +36,9 @@ n8n only lets the AI fill plain parameters, not the *Additional Fields* / *Field
 
 ```bash
 pnpm install
+pnpm up-swagger   # download Chatwoot's OpenAPI, regenerate nodes/*/resources.ts and list added/removed operations
 pnpm build
 pnpm publish --access public --no-git-checks
 ```
 
-Operations live in `nodes/*/resources.ts`; `openapi.json` is Chatwoot's official spec, kept as the reference to check coverage.
+`nodes/*/resources.ts` is generated from `openapi.json` (Chatwoot's official spec) by `scripts/generate.ts`; do not edit it by hand. Help Center operations are not in the spec and live in `nodes/Chatwoot/helpCenter.ts`.
