@@ -107,6 +107,40 @@ const bodyFields = (operation: Json) => {
 	);
 };
 
+const pagingFields: Field[] = [
+	{
+		rank: 2,
+		property: {
+			displayName: 'Return All',
+			name: 'returnAll',
+			type: 'boolean',
+			default: false,
+			description: 'Whether to return all results or only up to a given limit',
+			routing: { send: { paginate: '={{ true }}' } },
+		},
+	},
+	{
+		rank: 2,
+		property: {
+			displayName: 'Limit',
+			name: 'limit',
+			type: 'number',
+			default: 50,
+			typeOptions: { minValue: 1 },
+			description: 'Max number of results to return',
+			displayOptions: { show: { returnAll: [false] } },
+			routing: { send: { paginate: '={{ true }}' }, output: { maxResults: '={{ $value }}' } },
+		},
+	},
+];
+
+const itemsPath = (operation: Json) => {
+	const properties = resolve(operation.responses?.['200']?.content?.['application/json']?.schema ?? {}).properties ?? {};
+	if (properties.payload) return 'payload';
+	if (resolve(properties.data ?? {}).properties?.payload) return 'data.payload';
+	return Object.keys(properties).find((name) => typeOf(resolve(properties[name])) === 'array');
+};
+
 const operationFields = (pathItem: Json, operation: Json) => {
 	const byName = new Map<string, Field>();
 	for (const raw of [...(pathItem.parameters ?? []), ...(operation.parameters ?? [])]) {
@@ -123,8 +157,10 @@ const operationFields = (pathItem: Json, operation: Json) => {
 	}
 	const body = bodyFields(operation).filter((field) => !byName.has(field.property.name));
 	const all = [...byName.values(), ...body];
+	const paged = byName.get('page')?.property.routing?.send?.type === 'query';
 	return {
-		required: all.filter((field) => field.property.required || field.rank === 0),
+		paged,
+		required: [...all.filter((field) => field.property.required || field.rank === 0), ...(paged ? pagingFields : [])],
 		optional: all.filter((field) => !field.property.required && field.rank !== 0).map((field) => field.property),
 	};
 };
@@ -141,6 +177,8 @@ const build = (keep: (path: string) => boolean) => {
 			const resource = resources.get(tag) ?? { options: [], fields: new Map(), collections: [] };
 			resources.set(tag, resource);
 
+			const { required, optional, paged } = operationFields(pathItem, operation);
+			const root = paged ? itemsPath(operation) : undefined;
 			const value = startCase(operation.operationId);
 			const url = `=${path.replace(/\{(\w+)\}/g, '{{$parameter["$1"]}}')}`;
 			resource.options.push({
@@ -148,10 +186,12 @@ const build = (keep: (path: string) => boolean) => {
 				value,
 				action: operation.summary ?? value,
 				description: operation.description ?? operation.summary ?? '',
-				routing: { request: { method: method.toUpperCase() as 'GET', url } },
+				routing: {
+					request: { method: method.toUpperCase() as 'GET', url },
+					...(root && { output: { postReceive: [{ type: 'rootProperty', properties: { property: root } }] } }),
+				},
 			});
 
-			const { required, optional } = operationFields(pathItem, operation);
 			for (const field of required) {
 				const key = JSON.stringify(field.property);
 				const entry = resource.fields.get(key) ?? { field, operations: [] };
@@ -202,7 +242,10 @@ const build = (keep: (path: string) => boolean) => {
 		});
 		const grouped = [...resource.fields.values()].sort((a, b) => a.field.rank - b.field.rank);
 		for (const { field, operations } of grouped) {
-			properties.push({ ...field.property, displayOptions: show(operations) });
+			properties.push({
+				...field.property,
+				displayOptions: { show: { ...field.property.displayOptions?.show, ...show(operations).show } },
+			});
 		}
 		properties.push(...resource.collections);
 	}
