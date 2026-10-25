@@ -18,7 +18,7 @@ En n8n: **Settings → Community Nodes → Install** → `@growy/n8n-nodes-tools
 | | *Platform* (`/platform/api/v1`): cuentas, usuarios de cuenta, usuarios, agent bots | Token de Platform App | Super Admin → Platform Apps (solo self-hosted) |
 | **Chatwoot Trigger** | Webhooks (registra y elimina el webhook automáticamente) | Token de acceso de usuario | Administrador |
 
-Hay un único tipo de credencial, **Chatwoot Tools API** (URL + Access Token). Crea una credencial por token (por ejemplo una de admin y otra de Platform App) y elige la correcta en cada nodo. El nodo **Chatwoot** elige la API con su campo *API* y también está disponible como tool de IA (**Chatwoot Tool**).
+Hay un único tipo de credencial, **Chatwoot Tools API** (URL + Access Token). Crea una credencial por token (por ejemplo una de admin y otra de Platform App) y elige la correcta en cada nodo. El nodo **Chatwoot** elige la API con su campo *API*, luego *Resource* (Account, Contacts, Conversations, Inboxes & Campaigns, Labels & Attributes, Automation, Help Center), *Entity* (por ejemplo Article) y *Operation* y también está disponible como tool de IA (**Chatwoot Tool**).
 
 El **Account ID** es un campo requerido en cada operación.
 
@@ -32,7 +32,7 @@ Los recursos *Help Center Portal*, *Help Center Category* y *Help Center Article
 
 ## Uso de los nodos como tools de IA
 
-n8n solo deja que la IA complete parámetros planos, no las colecciones *Additional Fields* / *Fields*. Los campos requeridos y los filtros de query son parámetros planos.
+Por defecto solo se muestran los campos requeridos; cada campo o filtro opcional se agrega bajo demanda desde la lista *Filters* / *Additional Fields* / *Fields* (**Add Field**).
 
 ## Desarrollo
 
