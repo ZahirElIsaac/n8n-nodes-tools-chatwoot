@@ -1032,17 +1032,11 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 1,
-		"description": "Page number for pagination",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -1052,139 +1046,98 @@ export const applicationResources: INodeProperties[] = [
 					"Get Account Audit Logs"
 				]
 			}
-		}
-	},
-	{
-		"displayName": "Q",
-		"name": "q",
-		"type": "string",
-		"default": "",
-		"description": "Filter entries by the name or email of the user who performed the action",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "q",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
 		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Audit Logs"
-				],
-				"operation": [
-					"Get Account Audit Logs"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Types",
-		"name": "types",
-		"type": "string",
-		"default": "",
-		"description": "Filter entries by the type of the audited record",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "types",
-				"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Audit Logs"
-				],
-				"operation": [
-					"Get Account Audit Logs"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Since",
-		"name": "since",
-		"type": "number",
-		"default": 0,
-		"description": "Only return entries created at or after this unix timestamp",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "since"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Audit Logs"
-				],
-				"operation": [
-					"Get Account Audit Logs"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Until",
-		"name": "until",
-		"type": "number",
-		"default": 0,
-		"description": "Only return entries created at or before this unix timestamp",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "until"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Audit Logs"
-				],
-				"operation": [
-					"Get Account Audit Logs"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Sort",
-		"name": "sort",
-		"type": "options",
-		"default": "",
-		"description": "Order of the entries by creation time",
 		"options": [
 			{
-				"name": "Any",
-				"value": ""
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "Page number for pagination",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
 			},
 			{
-				"name": "desc",
-				"value": "desc"
+				"displayName": "Q",
+				"name": "q",
+				"type": "string",
+				"default": "",
+				"description": "Filter entries by the name or email of the user who performed the action",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "q"
+					}
+				}
 			},
 			{
-				"name": "asc",
-				"value": "asc"
-			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "sort",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Audit Logs"
+				"displayName": "Since",
+				"name": "since",
+				"type": "number",
+				"default": 0,
+				"description": "Only return entries created at or after this unix timestamp",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Sort",
+				"name": "sort",
+				"type": "options",
+				"default": "desc",
+				"description": "Order of the entries by creation time",
+				"options": [
+					{
+						"name": "desc",
+						"value": "desc"
+					},
+					{
+						"name": "asc",
+						"value": "asc"
+					}
 				],
-				"operation": [
-					"Get Account Audit Logs"
-				]
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "sort"
+					}
+				}
+			},
+			{
+				"displayName": "Types",
+				"name": "types",
+				"type": "string",
+				"default": "",
+				"description": "Filter entries by the type of the audited record",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "types",
+						"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "number",
+				"default": 0,
+				"description": "Only return entries created at or before this unix timestamp",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
 			}
-		}
+		]
 	},
 	{
 		"displayName": "Operation",
@@ -1322,17 +1275,11 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 1,
-		"description": "The page parameter",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -1342,7 +1289,22 @@ export const applicationResources: INodeProperties[] = [
 					"Get Account Automation Rule"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "The page parameter",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			}
+		]
 	},
 	{
 		"displayName": "Additional Fields",
@@ -2667,137 +2629,83 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Sort",
-		"name": "sort",
-		"type": "options",
-		"default": "",
-		"description": "The attribute by which list should be sorted",
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact List"
+				]
+			}
+		},
 		"options": [
 			{
-				"name": "Any",
-				"value": ""
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "The page parameter",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
 			},
 			{
-				"name": "name",
-				"value": "name"
-			},
-			{
-				"name": "email",
-				"value": "email"
-			},
-			{
-				"name": "phone_number",
-				"value": "phone_number"
-			},
-			{
-				"name": "last_activity_at",
-				"value": "last_activity_at"
-			},
-			{
-				"name": "-name",
-				"value": "-name"
-			},
-			{
-				"name": "-email",
-				"value": "-email"
-			},
-			{
-				"name": "-phone_number",
-				"value": "-phone_number"
-			},
-			{
-				"name": "-last_activity_at",
-				"value": "-last_activity_at"
-			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "sort",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Contacts"
+				"displayName": "Sort",
+				"name": "sort",
+				"type": "options",
+				"default": "name",
+				"description": "The attribute by which list should be sorted",
+				"options": [
+					{
+						"name": "name",
+						"value": "name"
+					},
+					{
+						"name": "email",
+						"value": "email"
+					},
+					{
+						"name": "phone_number",
+						"value": "phone_number"
+					},
+					{
+						"name": "last_activity_at",
+						"value": "last_activity_at"
+					},
+					{
+						"name": "-name",
+						"value": "-name"
+					},
+					{
+						"name": "-email",
+						"value": "-email"
+					},
+					{
+						"name": "-phone_number",
+						"value": "-phone_number"
+					},
+					{
+						"name": "-last_activity_at",
+						"value": "-last_activity_at"
+					}
 				],
-				"operation": [
-					"Contact List",
-					"Contact Search"
-				]
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "sort"
+					}
+				}
 			}
-		}
-	},
-	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 1,
-		"description": "The page parameter",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Contacts"
-				],
-				"operation": [
-					"Contact List",
-					"Contact Search"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Q",
-		"name": "q",
-		"type": "string",
-		"default": "",
-		"description": "Search using contact `name`, `identifier`, `email` or `phone number`",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "q",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Contacts"
-				],
-				"operation": [
-					"Contact Search"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 0,
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Contacts"
-				],
-				"operation": [
-					"Contact Filter"
-				]
-			}
-		}
+		]
 	},
 	{
 		"displayName": "Additional Fields",
@@ -3076,6 +2984,98 @@ export const applicationResources: INodeProperties[] = [
 		]
 	},
 	{
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Contacts"
+				],
+				"operation": [
+					"Contact Search"
+				]
+			}
+		},
+		"options": [
+			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "The page parameter",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			},
+			{
+				"displayName": "Q",
+				"name": "q",
+				"type": "string",
+				"default": "",
+				"description": "Search using contact `name`, `identifier`, `email` or `phone number`",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "q"
+					}
+				}
+			},
+			{
+				"displayName": "Sort",
+				"name": "sort",
+				"type": "options",
+				"default": "name",
+				"description": "The attribute by which list should be sorted",
+				"options": [
+					{
+						"name": "name",
+						"value": "name"
+					},
+					{
+						"name": "email",
+						"value": "email"
+					},
+					{
+						"name": "phone_number",
+						"value": "phone_number"
+					},
+					{
+						"name": "last_activity_at",
+						"value": "last_activity_at"
+					},
+					{
+						"name": "-name",
+						"value": "-name"
+					},
+					{
+						"name": "-email",
+						"value": "-email"
+					},
+					{
+						"name": "-phone_number",
+						"value": "-phone_number"
+					},
+					{
+						"name": "-last_activity_at",
+						"value": "-last_activity_at"
+					}
+				],
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "sort"
+					}
+				}
+			}
+		]
+	},
+	{
 		"displayName": "Additional Fields",
 		"name": "additionalFields",
 		"type": "collection",
@@ -3092,6 +3092,18 @@ export const applicationResources: INodeProperties[] = [
 			}
 		},
 		"options": [
+			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			},
 			{
 				"displayName": "Payload",
 				"name": "payload",
@@ -3680,311 +3692,256 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Status",
-		"name": "status",
-		"type": "options",
-		"default": "",
-		"description": "Filter by conversation status.",
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Conversations"
+				],
+				"operation": [
+					"Conversation List Meta"
+				]
+			}
+		},
 		"options": [
 			{
-				"name": "Any",
-				"value": ""
+				"displayName": "Inbox Id",
+				"name": "inbox_id",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "inbox_id"
+					}
+				}
 			},
 			{
-				"name": "all",
-				"value": "all"
+				"displayName": "Labels",
+				"name": "labels",
+				"type": "string",
+				"default": "",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "labels",
+						"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+					}
+				}
 			},
 			{
-				"name": "open",
-				"value": "open"
+				"displayName": "Q",
+				"name": "q",
+				"type": "string",
+				"default": "",
+				"description": "Filters conversations with messages containing the search term",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "q"
+					}
+				}
 			},
 			{
-				"name": "resolved",
-				"value": "resolved"
+				"displayName": "Status",
+				"name": "status",
+				"type": "options",
+				"default": "open",
+				"description": "Filter by conversation status.",
+				"options": [
+					{
+						"name": "all",
+						"value": "all"
+					},
+					{
+						"name": "open",
+						"value": "open"
+					},
+					{
+						"name": "resolved",
+						"value": "resolved"
+					},
+					{
+						"name": "pending",
+						"value": "pending"
+					},
+					{
+						"name": "snoozed",
+						"value": "snoozed"
+					}
+				],
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "status"
+					}
+				}
 			},
 			{
-				"name": "pending",
-				"value": "pending"
-			},
-			{
-				"name": "snoozed",
-				"value": "snoozed"
+				"displayName": "Team Id",
+				"name": "team_id",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "team_id"
+					}
+				}
 			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "status",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		]
+	},
+	{
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Conversations"
 				],
 				"operation": [
-					"Conversation List Meta",
 					"Conversation List"
 				]
-			}
-		}
-	},
-	{
-		"displayName": "Q",
-		"name": "q",
-		"type": "string",
-		"default": "",
-		"description": "Filters conversations with messages containing the search term",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "q",
-				"value": "={{ $value === '' ? undefined : $value }}"
 			}
 		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation List Meta",
-					"Conversation List"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Inbox Id",
-		"name": "inbox_id",
-		"type": "number",
-		"default": 0,
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "inbox_id"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation List Meta",
-					"Conversation List"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Team Id",
-		"name": "team_id",
-		"type": "number",
-		"default": 0,
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "team_id"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation List Meta",
-					"Conversation List"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Labels",
-		"name": "labels",
-		"type": "string",
-		"default": "",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "labels",
-				"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation List Meta",
-					"Conversation List"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Assignee Type",
-		"name": "assignee_type",
-		"type": "options",
-		"default": "",
-		"description": "Filter conversations by assignee type.",
 		"options": [
 			{
-				"name": "Any",
-				"value": ""
-			},
-			{
-				"name": "me",
-				"value": "me"
-			},
-			{
-				"name": "unassigned",
-				"value": "unassigned"
-			},
-			{
-				"name": "all",
-				"value": "all"
-			},
-			{
-				"name": "assigned",
-				"value": "assigned"
-			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "assignee_type",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
+				"displayName": "Assignee Type",
+				"name": "assignee_type",
+				"type": "options",
+				"default": "all",
+				"description": "Filter conversations by assignee type.",
+				"options": [
+					{
+						"name": "me",
+						"value": "me"
+					},
+					{
+						"name": "unassigned",
+						"value": "unassigned"
+					},
+					{
+						"name": "all",
+						"value": "all"
+					},
+					{
+						"name": "assigned",
+						"value": "assigned"
+					}
 				],
-				"operation": [
-					"Conversation List"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 1,
-		"description": "paginate through conversations",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "assignee_type"
+					}
+				}
+			},
+			{
+				"displayName": "Inbox Id",
+				"name": "inbox_id",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "inbox_id"
+					}
+				}
+			},
+			{
+				"displayName": "Labels",
+				"name": "labels",
+				"type": "string",
+				"default": "",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "labels",
+						"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+					}
+				}
+			},
+			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "paginate through conversations",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			},
+			{
+				"displayName": "Q",
+				"name": "q",
+				"type": "string",
+				"default": "",
+				"description": "Filters conversations with messages containing the search term",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "q"
+					}
+				}
+			},
+			{
+				"displayName": "Status",
+				"name": "status",
+				"type": "options",
+				"default": "open",
+				"description": "Filter by conversation status.",
+				"options": [
+					{
+						"name": "all",
+						"value": "all"
+					},
+					{
+						"name": "open",
+						"value": "open"
+					},
+					{
+						"name": "resolved",
+						"value": "resolved"
+					},
+					{
+						"name": "pending",
+						"value": "pending"
+					},
+					{
+						"name": "snoozed",
+						"value": "snoozed"
+					}
 				],
-				"operation": [
-					"Conversation List"
-				]
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "status"
+					}
+				}
+			},
+			{
+				"displayName": "Team Id",
+				"name": "team_id",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "team_id"
+					}
+				}
 			}
-		}
-	},
-	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 0,
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation Filter"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Sort By",
-		"name": "sort_by",
-		"type": "options",
-		"default": "",
-		"description": "Sort filtered conversations using the same options as the conversation list.",
-		"options": [
-			{
-				"name": "Any",
-				"value": ""
-			},
-			{
-				"name": "last_activity_at_asc",
-				"value": "last_activity_at_asc"
-			},
-			{
-				"name": "last_activity_at_desc",
-				"value": "last_activity_at_desc"
-			},
-			{
-				"name": "created_at_asc",
-				"value": "created_at_asc"
-			},
-			{
-				"name": "created_at_desc",
-				"value": "created_at_desc"
-			},
-			{
-				"name": "priority_asc",
-				"value": "priority_asc"
-			},
-			{
-				"name": "priority_desc",
-				"value": "priority_desc"
-			},
-			{
-				"name": "waiting_since_asc",
-				"value": "waiting_since_asc"
-			},
-			{
-				"name": "waiting_since_desc",
-				"value": "waiting_since_desc"
-			},
-			{
-				"name": "priority_desc_created_at_asc",
-				"value": "priority_desc_created_at_asc"
-			},
-			{
-				"name": "unread",
-				"value": "unread"
-			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "sort_by",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Conversations"
-				],
-				"operation": [
-					"Conversation Filter"
-				]
-			}
-		}
+		]
 	},
 	{
 		"displayName": "Additional Fields",
@@ -4157,6 +4114,18 @@ export const applicationResources: INodeProperties[] = [
 		},
 		"options": [
 			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 0,
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			},
+			{
 				"displayName": "Payload",
 				"name": "payload",
 				"type": "json",
@@ -4166,6 +4135,61 @@ export const applicationResources: INodeProperties[] = [
 						"type": "body",
 						"property": "payload",
 						"value": "={{ typeof $value === 'string' ? JSON.parse($value) : $value }}"
+					}
+				}
+			},
+			{
+				"displayName": "Sort By",
+				"name": "sort_by",
+				"type": "options",
+				"default": "last_activity_at_desc",
+				"description": "Sort filtered conversations using the same options as the conversation list.",
+				"options": [
+					{
+						"name": "last_activity_at_asc",
+						"value": "last_activity_at_asc"
+					},
+					{
+						"name": "last_activity_at_desc",
+						"value": "last_activity_at_desc"
+					},
+					{
+						"name": "created_at_asc",
+						"value": "created_at_asc"
+					},
+					{
+						"name": "created_at_desc",
+						"value": "created_at_desc"
+					},
+					{
+						"name": "priority_asc",
+						"value": "priority_asc"
+					},
+					{
+						"name": "priority_desc",
+						"value": "priority_desc"
+					},
+					{
+						"name": "waiting_since_asc",
+						"value": "waiting_since_asc"
+					},
+					{
+						"name": "waiting_since_desc",
+						"value": "waiting_since_desc"
+					},
+					{
+						"name": "priority_desc_created_at_asc",
+						"value": "priority_desc_created_at_asc"
+					},
+					{
+						"name": "unread",
+						"value": "unread"
+					}
+				],
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "sort_by"
 					}
 				}
 			}
@@ -4916,47 +4940,50 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Filter Type",
-		"name": "filter_type",
-		"type": "options",
-		"default": "",
-		"description": "The type of custom filter",
-		"options": [
-			{
-				"name": "Any",
-				"value": ""
-			},
-			{
-				"name": "conversation",
-				"value": "conversation"
-			},
-			{
-				"name": "contact",
-				"value": "contact"
-			},
-			{
-				"name": "report",
-				"value": "report"
-			}
-		],
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "filter_type",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Custom Filters"
 				],
 				"operation": [
-					"List All Filters",
-					"Create A Custom Filter"
+					"List All Filters"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Filter Type",
+				"name": "filter_type",
+				"type": "options",
+				"default": "conversation",
+				"description": "The type of custom filter",
+				"options": [
+					{
+						"name": "conversation",
+						"value": "conversation"
+					},
+					{
+						"name": "contact",
+						"value": "contact"
+					},
+					{
+						"name": "report",
+						"value": "report"
+					}
+				],
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "filter_type"
+					}
+				}
+			}
+		]
 	},
 	{
 		"displayName": "Additional Fields",
@@ -4975,6 +5002,33 @@ export const applicationResources: INodeProperties[] = [
 			}
 		},
 		"options": [
+			{
+				"displayName": "Filter Type",
+				"name": "filter_type",
+				"type": "options",
+				"default": "conversation",
+				"description": "The type of custom filter",
+				"options": [
+					{
+						"name": "conversation",
+						"value": "conversation"
+					},
+					{
+						"name": "contact",
+						"value": "contact"
+					},
+					{
+						"name": "report",
+						"value": "report"
+					}
+				],
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "filter_type"
+					}
+				}
+			},
 			{
 				"displayName": "Name",
 				"name": "name",
@@ -5483,30 +5537,6 @@ export const applicationResources: INodeProperties[] = [
 				],
 				"operation": [
 					"Delete Agent In Inbox"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Name",
-		"name": "name",
-		"type": "string",
-		"default": "",
-		"description": "Exact template name to filter by",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "name",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Inboxes"
-				],
-				"operation": [
-					"List Whatsapp Message Templates"
 				]
 			}
 		}
@@ -6051,6 +6081,38 @@ export const applicationResources: INodeProperties[] = [
 					"send": {
 						"type": "body",
 						"property": "working_hours_enabled"
+					}
+				}
+			}
+		]
+	},
+	{
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Inboxes"
+				],
+				"operation": [
+					"List Whatsapp Message Templates"
+				]
+			}
+		},
+		"options": [
+			{
+				"displayName": "Name",
+				"name": "name",
+				"type": "string",
+				"default": "",
+				"description": "Exact template name to filter by",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "name"
 					}
 				}
 			}
@@ -6730,17 +6792,11 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "After",
-		"name": "after",
-		"type": "number",
-		"default": 0,
-		"description": "Fetch messages after the message with this ID. Returns up to 100 messages in ascending order.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "after"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -6750,30 +6806,35 @@ export const applicationResources: INodeProperties[] = [
 					"List All Messages"
 				]
 			}
-		}
-	},
-	{
-		"displayName": "Before",
-		"name": "before",
-		"type": "number",
-		"default": 0,
-		"description": "Fetch messages before the message with this ID. Returns up to 20 messages in ascending order.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "before"
-			}
 		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Messages"
-				],
-				"operation": [
-					"List All Messages"
-				]
+		"options": [
+			{
+				"displayName": "After",
+				"name": "after",
+				"type": "number",
+				"default": 0,
+				"description": "Fetch messages after the message with this ID. Returns up to 100 messages in ascending order.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "after"
+					}
+				}
+			},
+			{
+				"displayName": "Before",
+				"name": "before",
+				"type": "number",
+				"default": 0,
+				"description": "Fetch messages before the message with this ID. Returns up to 20 messages in ascending order.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "before"
+					}
+				}
 			}
-		}
+		]
 	},
 	{
 		"displayName": "Additional Fields",
@@ -7499,17 +7560,11 @@ export const applicationResources: INodeProperties[] = [
 		}
 	},
 	{
-		"displayName": "Page",
-		"name": "page",
-		"type": "number",
-		"default": 1,
-		"description": "The page parameter",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "page"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -7519,214 +7574,210 @@ export const applicationResources: INodeProperties[] = [
 					"Get Account Reporting Events"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Inbox Id",
+				"name": "inbox_id",
+				"type": "number",
+				"default": 0,
+				"description": "Filter events by inbox ID",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "inbox_id"
+					}
+				}
+			},
+			{
+				"displayName": "Name",
+				"name": "name",
+				"type": "string",
+				"default": "",
+				"description": "Filter events by event name (e.g., first_response, resolution, reply_time)",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "name"
+					}
+				}
+			},
+			{
+				"displayName": "Page",
+				"name": "page",
+				"type": "number",
+				"default": 1,
+				"description": "The page parameter",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "page"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where events should start (Unix timestamp in seconds)",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where events should stop (Unix timestamp in seconds)",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			},
+			{
+				"displayName": "User Id",
+				"name": "user_id",
+				"type": "number",
+				"default": 0,
+				"description": "Filter events by user/agent ID",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "user_id"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Since",
-		"name": "since",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where events should start (Unix timestamp in seconds)",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "since",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Account Reporting Events"
+					"List All Conversation Statistics"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Id",
+				"name": "id",
+				"type": "string",
+				"default": "",
+				"description": "The Id of specific object in case of agent/inbox/label",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "id"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Until",
-		"name": "until",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where events should stop (Unix timestamp in seconds)",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "until",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Account Reporting Events"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Inbox Id",
-		"name": "inbox_id",
-		"type": "number",
-		"default": 0,
-		"description": "Filter events by inbox ID",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "inbox_id"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"Get Account Reporting Events"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "User Id",
-		"name": "user_id",
-		"type": "number",
-		"default": 0,
-		"description": "Filter events by user/agent ID",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "user_id"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"Get Account Reporting Events"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Name",
-		"name": "name",
-		"type": "string",
-		"default": "",
-		"description": "Filter events by event name (e.g., first_response, resolution, reply_time)",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "name",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"Get Account Reporting Events"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Id",
-		"name": "id",
-		"type": "string",
-		"default": "",
-		"description": "The Id of specific object in case of agent/inbox/label",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "id",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"List All Conversation Statistics",
 					"List All Conversation Statistics Summary"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Id",
+				"name": "id",
+				"type": "string",
+				"default": "",
+				"description": "The Id of specific object in case of agent/inbox/label",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "id"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Since",
-		"name": "since",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where report should start.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "since",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"List All Conversation Statistics",
-					"List All Conversation Statistics Summary"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "Until",
-		"name": "until",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where report should stop.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "until",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
-		"displayOptions": {
-			"show": {
-				"resource": [
-					"Reports"
-				],
-				"operation": [
-					"List All Conversation Statistics",
-					"List All Conversation Statistics Summary"
-				]
-			}
-		}
-	},
-	{
-		"displayName": "User Id",
-		"name": "user_id",
-		"type": "string",
-		"default": "",
-		"description": "The numeric ID of the user",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "user_id",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -7736,106 +7787,293 @@ export const applicationResources: INodeProperties[] = [
 					"Get Agent Conversation Metrics"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "User Id",
+				"name": "user_id",
+				"type": "string",
+				"default": "",
+				"description": "The numeric ID of the user",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "user_id"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Since",
-		"name": "since",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where report should start (Unix timestamp).",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "since",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Channel Summary Report",
-					"Get Inbox Summary Report",
-					"Get Agent Summary Report",
-					"Get Team Summary Report",
-					"Get First Response Time Distribution",
-					"Get Inbox Label Matrix",
-					"Get Outgoing Messages Count"
+					"Get Channel Summary Report"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Until",
-		"name": "until",
-		"type": "string",
-		"default": "",
-		"description": "The timestamp from where report should stop (Unix timestamp).",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "until",
-				"value": "={{ $value === '' ? undefined : $value }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Channel Summary Report",
-					"Get Inbox Summary Report",
-					"Get Agent Summary Report",
-					"Get Team Summary Report",
-					"Get First Response Time Distribution",
-					"Get Inbox Label Matrix",
-					"Get Outgoing Messages Count"
+					"Get Inbox Summary Report"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Business Hours",
+				"name": "business_hours",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether to calculate metrics using business hours only.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "business_hours"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Business Hours",
-		"name": "business_hours",
-		"type": "boolean",
-		"default": false,
-		"description": "Whether to calculate metrics using business hours only.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "business_hours"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Inbox Summary Report",
-					"Get Agent Summary Report",
+					"Get Agent Summary Report"
+				]
+			}
+		},
+		"options": [
+			{
+				"displayName": "Business Hours",
+				"name": "business_hours",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether to calculate metrics using business hours only.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "business_hours"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
+	},
+	{
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Reports"
+				],
+				"operation": [
 					"Get Team Summary Report"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Business Hours",
+				"name": "business_hours",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether to calculate metrics using business hours only.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "business_hours"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Inbox Ids",
-		"name": "inbox_ids",
-		"type": "string",
-		"default": "",
-		"description": "Filter by specific inbox IDs.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "inbox_ids",
-				"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
+		"displayOptions": {
+			"show": {
+				"resource": [
+					"Reports"
+				],
+				"operation": [
+					"Get First Response Time Distribution"
+				]
 			}
 		},
+		"options": [
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
+	},
+	{
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
@@ -7845,31 +8083,108 @@ export const applicationResources: INodeProperties[] = [
 					"Get Inbox Label Matrix"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Inbox Ids",
+				"name": "inbox_ids",
+				"type": "string",
+				"default": "",
+				"description": "Filter by specific inbox IDs.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "inbox_ids",
+						"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+					}
+				}
+			},
+			{
+				"displayName": "Label Ids",
+				"name": "label_ids",
+				"type": "string",
+				"default": "",
+				"description": "Filter by specific label IDs.",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "label_ids",
+						"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
+					}
+				}
+			},
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
-		"displayName": "Label Ids",
-		"name": "label_ids",
-		"type": "string",
-		"default": "",
-		"description": "Filter by specific label IDs.",
-		"routing": {
-			"send": {
-				"type": "query",
-				"property": "label_ids",
-				"value": "={{ $value === '' ? undefined : $value.split(',').map((item) => item.trim()) }}"
-			}
-		},
+		"displayName": "Filters",
+		"name": "additionalFields",
+		"type": "collection",
+		"placeholder": "Add Field",
+		"default": {},
 		"displayOptions": {
 			"show": {
 				"resource": [
 					"Reports"
 				],
 				"operation": [
-					"Get Inbox Label Matrix"
+					"Get Outgoing Messages Count"
 				]
 			}
-		}
+		},
+		"options": [
+			{
+				"displayName": "Since",
+				"name": "since",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should start (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "since"
+					}
+				}
+			},
+			{
+				"displayName": "Until",
+				"name": "until",
+				"type": "string",
+				"default": "",
+				"description": "The timestamp from where report should stop (Unix timestamp).",
+				"routing": {
+					"send": {
+						"type": "query",
+						"property": "until"
+					}
+				}
+			}
+		]
 	},
 	{
 		"displayName": "Operation",
