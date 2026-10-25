@@ -1,8 +1,6 @@
 import { type Field } from './fields.ts';
 import { type Json, resolve, typeOf } from './spec.ts';
 
-export const LIMIT_RESULTS = '={{ $parameter["returnAll"] ? 100000 : $parameter["limit"] }}';
-
 export const listingFields = (paged: boolean): Field[] => [
 	{
 		rank: 2,

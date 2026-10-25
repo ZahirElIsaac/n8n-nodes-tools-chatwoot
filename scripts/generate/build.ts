@@ -1,7 +1,8 @@
 import type { INodeProperties, INodePropertyOptions } from 'n8n-workflow';
 import { markAdminOperations } from './admin.ts';
 import { type Field, operationFields } from './fields.ts';
-import { LIMIT_RESULTS, listing, listingFields } from './listing.ts';
+import { listing, listingFields } from './listing.ts';
+import { LIMIT_RESULTS } from '../../nodes/Chatwoot/limit.ts';
 import { type Json, spec, startCase } from './spec.ts';
 
 const METHODS = ['get', 'post', 'put', 'patch', 'delete'];
@@ -29,7 +30,7 @@ const collectResources = (keep: (path: string) => boolean) => {
 				...(list && !paged ? [{ type: 'limit', properties: { maxResults: LIMIT_RESULTS } }] : []),
 			];
 			const value = startCase(operation.operationId);
-			const url = `=${path.replace(/\{(\w+)\}/g, '{{$parameter["$1"]}}')}`;
+			const url = `=${path.replace(/\{(\w+)\}/g, '{{ encodeURIComponent($parameter["$1"]) }}')}`;
 			resource.options.push({
 				name: value,
 				value,

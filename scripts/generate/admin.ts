@@ -1,6 +1,6 @@
 import type { INodeProperties, INodePropertyOptions } from 'n8n-workflow';
 
-const SEGMENT = (names: string) => new RegExp(`account_id"\\]\\}\\}/(${names})(/|$|\\{)`);
+const SEGMENT = (names: string) => new RegExp(`account_id"\\]\\) \\}\\}/(${names})(/|$|\\{)`);
 
 const RULES: Array<[RegExp, RegExp]> = [
 	[
