@@ -1,11 +1,13 @@
 {
   "name": "@growy/n8n-nodes-tools-chatwoot",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "description": "n8n community nodes and AI tools for the Chatwoot API",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
-    "chatwoot"
+    "chatwoot",
+    "help-center",
+    "ai-tools"
   ],
   "license": "MIT",
   "author": "Growy",
@@ -38,5 +40,13 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "homepage": "https://github.com/ZahirElIsaac/n8n-nodes-tools-chatwoot#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZahirElIsaac/n8n-nodes-tools-chatwoot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ZahirElIsaac/n8n-nodes-tools-chatwoot/issues"
   }
 }
