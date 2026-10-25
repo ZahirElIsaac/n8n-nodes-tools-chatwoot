@@ -1,4 +1,10 @@
-import type { DeclarativeRestApiSettings, IExecutePaginationFunctions, INodeExecutionData } from 'n8n-workflow';
+import type {
+	DeclarativeRestApiSettings,
+	IExecutePaginationFunctions,
+	INodeExecutionData,
+	INodeProperties,
+	INodePropertyOptions,
+} from 'n8n-workflow';
 
 export async function paginateByPage(
 	this: IExecutePaginationFunctions,
@@ -21,3 +27,25 @@ export async function paginateByPage(
 	}
 	return results.slice(0, limit);
 }
+
+export const withPagination = (properties: INodeProperties[]): INodeProperties[] => {
+	const paged = new Set(
+		properties
+			.filter((property) => property.name === 'returnAll' && property.routing?.send?.paginate !== undefined)
+			.flatMap(({ displayOptions }) =>
+				(displayOptions?.show?.operation ?? []).map((operation) => `${displayOptions?.show?.resource?.[0]}|${operation}`),
+			),
+	);
+	return properties.map((property) => {
+		if (property.name !== 'operation' || property.type !== 'options') return property;
+		const resource = property.displayOptions?.show?.resource?.[0];
+		return {
+			...property,
+			options: (property.options as INodePropertyOptions[]).map((option) =>
+				paged.has(`${resource}|${option.value}`)
+					? { ...option, routing: { ...option.routing, operations: { pagination: paginateByPage } } }
+					: option,
+			),
+		};
+	});
+};
