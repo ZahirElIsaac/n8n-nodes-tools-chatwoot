@@ -1,4 +1,4 @@
-export type Api = 'application' | 'platform';
+export type Api = 'application' | 'platform' | 'bot';
 
 export const DOMAINS: Record<Api, Record<string, string[]>> = {
 	application: {
@@ -12,5 +12,8 @@ export const DOMAINS: Record<Api, Record<string, string[]>> = {
 	},
 	platform: {
 		Platform: ['Accounts', 'Account Users', 'Users', 'Agent Bots'],
+	},
+	bot: {
+		Conversations: ['Conversations', 'Conversation Assignments', 'Messages'],
 	},
 };

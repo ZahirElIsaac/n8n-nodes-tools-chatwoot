@@ -19,15 +19,16 @@ Un único tipo de credencial, **Chatwoot Tools API**:
 | Campo | Valor |
 | --- | --- |
 | Chatwoot URL | URL base, por ejemplo `https://app.chatwoot.com` |
-| Token Type | *User (Admin / Agent)* o *Platform App (Super Admin)* |
+| Token Type | *User (Admin / Agent)*, *Platform App (Super Admin)* o *Agent Bot* |
 | Access Token | El token que corresponde al tipo |
 
-Crea una credencial por token. El botón **Test** valida URL, token y tipo (`GET /api/v1/profile` para usuarios, `GET /platform/api/v1/agent_bots` para Platform Apps).
+Crea una credencial por token. El botón **Test** valida URL, token y tipo (`GET /api/v1/profile` para usuarios, `GET /platform/api/v1/agent_bots` para Platform Apps; en Agent Bots solo se valida la URL con `GET /api`).
 
 | Token | Dónde obtenerlo | Con qué usarlo |
 | --- | --- | --- |
 | Token de usuario | Chatwoot → Perfil → Access Token | Nodo **Chatwoot**, API *Application* |
 | Token de Platform App | Super Admin → Platform Apps (solo self-hosted) | Nodo **Chatwoot**, API *Platform* |
+| Token de Agent Bot | Settings → Agent Bots → Access Token | Nodo **Chatwoot**, API *Agent Bot* (conversaciones: crear, actualizar, cambiar estado/prioridad, atributos personalizados; mensajes: crear; asignaciones) |
 
 Una Platform App solo ve los objetos que creó o a los que se le dio acceso (si no, `401 Non permissible resource`).
 

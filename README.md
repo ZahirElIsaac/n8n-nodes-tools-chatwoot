@@ -19,15 +19,16 @@ One credential type, **Chatwoot Tools API**:
 | Field | Value |
 | --- | --- |
 | Chatwoot URL | Base URL, e.g. `https://app.chatwoot.com` |
-| Token Type | *User (Admin / Agent)* or *Platform App (Super Admin)* |
+| Token Type | *User (Admin / Agent)*, *Platform App (Super Admin)* or *Agent Bot* |
 | Access Token | The token that matches the type |
 
-Create one credential per token. The **Test** button validates URL, token and type (`GET /api/v1/profile` for users, `GET /platform/api/v1/agent_bots` for Platform Apps).
+Create one credential per token. The **Test** button validates URL, token and type (`GET /api/v1/profile` for users, `GET /platform/api/v1/agent_bots` for Platform Apps; for Agent Bots only the URL is checked via `GET /api`).
 
 | Token | Where to get it | Use it with |
 | --- | --- | --- |
 | User token | Chatwoot → Profile → Access Token | **Chatwoot** node, API *Application* |
 | Platform App token | Super Admin → Platform Apps (self-hosted only) | **Chatwoot** node, API *Platform* |
+| Agent Bot token | Settings → Agent Bots → Access Token | **Chatwoot** node, API *Agent Bot* (conversations: create, update, toggle status/priority, custom attributes; messages: create; assignments) |
 
 A Platform App only sees the objects it created or was granted access to (`401 Non permissible resource` otherwise).
 

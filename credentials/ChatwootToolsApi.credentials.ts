@@ -33,6 +33,11 @@ export class ChatwootToolsApi implements ICredentialType {
 					value: 'platform',
 					description: 'Super Admin → Platform Apps. For the Platform API',
 				},
+				{
+					name: 'Agent Bot',
+					value: 'bot',
+					description: 'Settings → Agent Bots → Access Token. For conversations, messages and assignments only',
+				},
 			],
 			default: 'user',
 		},
@@ -52,7 +57,7 @@ export class ChatwootToolsApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.url}}',
-			url: '={{$credentials.tokenType === "platform" ? "/platform/api/v1/agent_bots" : "/api/v1/profile"}}',
+			url: '={{({ platform: "/platform/api/v1/agent_bots", bot: "/api" })[$credentials.tokenType] ?? "/api/v1/profile"}}',
 		},
 	};
 }
